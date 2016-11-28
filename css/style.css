@@ -1,0 +1,10 @@
+/* YOUR CUSTOM STYLES */
+.extra-margins {
+    margin-top: 2rem;
+    margin-bottom: 3.5rem;
+}
+
+main {
+    padding-top: 5rem;
+    padding-bottom: 4rem;
+}
