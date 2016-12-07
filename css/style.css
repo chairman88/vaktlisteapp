@@ -1,10 +1,15 @@
 /* YOUR CUSTOM STYLES */
 .extra-margins {
-    margin-top: 2rem;
-    margin-bottom: 3.5rem;
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
 }
 
 main {
     padding-top: 5rem;
     padding-bottom: 4rem;
+}
+
+
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
 }
