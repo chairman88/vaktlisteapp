@@ -18,6 +18,11 @@
         <!-- Material Design Bootstrap -->
         <link href="css/mdb.min.css" rel="stylesheet">
 
+        <!-- MDL -->
+        <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+       
         <!-- Your custom styles (optional) -->
         <link href="css/style.css" rel="stylesheet">
 
@@ -75,10 +80,38 @@
         <main class="p-t-6">
             <div class="container-fluid">   
                <div class="row">
-                   <div class="col-lg-12"></div>
+                   <div class="col-lg-12">
+                      <h2>Min profil</h2>
+                      
+                       <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                          <input type="checkbox" id="switch-1" class="mdl-switch__input" checked>
+                           <span class="mdl-switch__label">Varsler</span>
+                       </label>
+                       
+                       <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                          <input type="checkbox" id="switch-2" class="mdl-switch__input" checked>
+                          <span class="mdl-switch__label">Bytte av vakt</span>
+                       </label>
+                       <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                          <input type="checkbox" id="switch-3" class="mdl-switch__input" checked>
+                          <span class="mdl-switch__label">Ny ledig vakt</span>
+                       </label>
+                       <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                          <input type="checkbox" id="switch-4" class="mdl-switch__input" checked>
+                          <span class="mdl-switch__label">Ledig vakt tatt</span>
+                       </label>
+
+                        <h3>Profil</h3>
+
+                   </div>
+                   
                </div>
                       
-                    
+                    <div class="row">
+                        <div class="col-lg-2 col-xs-2"><a class="btn btn-primary">Endre info</a></div>
+                        <div class="col-lg-2 col-xs-2"><a class="btn btn-primary">Logg ut</a></div>
+                        <div class="col-lg-8 col-xs-8">
+                </div>
                 
                 
             </div>
@@ -98,6 +131,10 @@
 
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="js/mdb.min.js"></script>
+        
+        <!-- MDL -->
+        <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+
 
 
     </body>

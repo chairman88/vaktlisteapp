@@ -13,3 +13,34 @@ main {
 @-moz-document url-prefix() {
   fieldset { display: table-cell; }
 }
+
+
+h3,h4,h2 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    
+}
+
+.mdl-switch {
+    
+}
+
+#pc {
+     display: none; /* This is how it looks on mobile */
+}
+
+@media (min-width: 1100px) {
+  #pc {
+    display: block; /* This is how it looks on desktop */
+  }
+}
+
+#mobile {
+     display: none; /* This is how it looks on mobile */
+}
+
+@media (max-width: 1100px) {
+  #mobile {
+    display: block; /* This is how it looks on desktop */
+  }
+}
