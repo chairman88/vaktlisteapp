@@ -1,0 +1,15 @@
+{
+  "short_name": "@Work",
+  "name": "@Work vaktlisteapp",
+  "icons": [
+    {
+      "src": "icon1.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}
