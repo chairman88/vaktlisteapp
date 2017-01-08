@@ -26,7 +26,7 @@ $query = "CREATE SCHEMA IF NOT EXISTS `heroku_8ecd2cc03a114b6` DEFAULT CHARACTER
 USE `heroku_8ecd2cc03a114b6` ;
 
 CREATE TABLE IF NOT EXISTS `heroku_8ecd2cc03a114b6`.`brukere` (
-  `personid` INT NOT NULL,
+  `personid` AUTO_INCREMENT INT NOT NULL,
   `brukernavn` VARCHAR(45) NULL,
   `passord` VARCHAR(45) NULL,
   PRIMARY KEY (`personid`)
@@ -57,7 +57,7 @@ ENGINE = InnoDB;
 -- Table `heroku_8ecd2cc03a114b6`.`person`
 -- -----------------------------------------------------
 $=query = "CREATE TABLE IF NOT EXISTS `heroku_8ecd2cc03a114b6`.`person` (
-  `entryid` INT NOT NULL,
+  `entryid` AUTO_INCREMENT INT NOT NULL,
   `personid` INT NULL,
   `fornavn` VARCHAR(45) NULL,
   `etternavn` VARCHAR(45) NULL,
@@ -104,7 +104,7 @@ ENGINE = InnoDB;
 -- Table `heroku_8ecd2cc03a114b6`.`vaktliste`
 -- -----------------------------------------------------
 $query = "CREATE TABLE IF NOT EXISTS `heroku_8ecd2cc03a114b6`.`vaktliste` (
-  `vaktlisteid` INT NOT NULL,
+  `vaktlisteid` AUTO_INCREMENT INT NOT NULL,
   `vaktid` INT NULL,
   `personid` INT NULL,
   `dato` DATE NULL,

@@ -84,13 +84,25 @@
 
         <!--Main layout-->
         <main class="p-t-6">
+           <script>
+            $('form').on("submit", function(event) {
+                    event.preventDefault();
+                    var formData = $("#newuser").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: 'functions.php',
+                    data: formData,
+                    dataType: 'json',
+                    
+                });
+           </script>
             <div class="container-fluid">   
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                      
                        <h2>Ny bruker</h2>
                       
-                        <form class="form" id="user" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <form class="form" id="newuser" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 
                             
                             <div class="md-form form-group">
