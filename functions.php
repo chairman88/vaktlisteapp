@@ -3,7 +3,7 @@
 include 'db.php';
 
 
-     if (isset ($_POST['fname']), ($_POST['lname']), ($_POST['tlf']), ($_POST['epost']), ($_POST['adresse']), ($_POST['type']), ($_POST['brukernavn']), ($_POST['passord']),) {
+     if (isset ($_POST['fname'], $_POST['lname'], $_POST['tlf'], $_POST['epost'], $_POST['adresse'], $_POST['type'], $_POST['brukernavn'], $_POST['passord'])) {
 		 $fornavn = $_POST['fname'];	   
 		 $etternavn = $_POST['lname'];	   
          $tlf = $_POST['tlf'];	   
@@ -36,14 +36,7 @@ else
     echo "<script type='text/javascript'>$( '.1' ).text( 'Feilet!' ).css( 'color', 'red' ).show().fadeOut( 3000 );</script>";
 }
 
-	    catch (PDOException $e)			// If an error is detected
-        {
-	if (isset($debug))			// If we are doing development
-		die ('Unable to connect to database : '.$e->getMessage());
-
-	else 						// Do NOT show above information to end users.
-		die ('Unable to connect to database, please try again later');
-        }
+	    
 	}
 
 
