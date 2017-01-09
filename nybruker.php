@@ -43,8 +43,10 @@
                     type: 'POST',
                     url: 'functions.php',
                     data: {data : data},
-                    dataType: 'json'
+                    dataType: 'json',
+                    success: function(data) {
                     
+                    }
                 });
             });
            </script>
@@ -106,7 +108,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                      
-                       <h2>Ny bruker</h2>
+                       <h4>Ny bruker</h4>
                       
                         <form class="form" id="newuser" action="" method="post">
 
@@ -133,6 +135,18 @@
                                
                                 <input type="text" name="epost" class="form-control validate">
                                 <label for="epost">E-postadressse</label>
+                                
+                            </div>
+                            <div class="md-form form-group">
+                               
+                                <input type="text" name="postnummer" class="form-control validate">
+                                <label for="postnummer">Postnummer</label>
+                                
+                            </div>
+                            <div class="md-form form-group">
+                               
+                                <input type="text" name="poststed" class="form-control validate">
+                                <label for="poststed">Poststed</label>
                                 
                             </div>
                             <div class="md-form form-group">

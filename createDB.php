@@ -16,10 +16,11 @@ $sth->execute();
 
 
 $query = "CREATE TABLE IF NOT EXISTS `heroku_8ecd2cc03a114b6`.`adresse` (
+  `adresseid` INT AUTO_INCREMENT NOT NULL,
   `postnummer` INT(4) NOT NULL,
   `poststed` VARCHAR(45) NULL,
   `adresse` VARCHAR(45) NULL,
-  PRIMARY KEY (`postnummer`)
+  PRIMARY KEY (`adresseid`)
   )";
 $sth = $db->prepare($query);
 $sth->execute();
@@ -30,16 +31,16 @@ $query = "CREATE TABLE IF NOT EXISTS `heroku_8ecd2cc03a114b6`.`person` (
   `personid` INT NULL,
   `fornavn` VARCHAR(45) NULL,
   `etternavn` VARCHAR(45) NULL,
-  `postnummer` INT(4) NULL,
+  `adresseid` INT NULL,
   `telefonnummer` VARCHAR(45) NULL,
   `epostadresse` VARCHAR(45) NULL,
   `type` VARCHAR(45) NULL,
-  INDEX `postnummer_idx` (`postnummer` ASC),
+  INDEX `adresseid_idx` (`adresseid` ASC),
   PRIMARY KEY (`entryid`),
   INDEX `personid_idx` (`personid` ASC),
-  CONSTRAINT `postnummer`
-    FOREIGN KEY (`postnummer`)
-    REFERENCES `heroku_8ecd2cc03a114b6`.`adresse` (`postnummer`)
+  CONSTRAINT `adresseid`
+    FOREIGN KEY (`adresseid`)
+    REFERENCES `heroku_8ecd2cc03a114b6`.`adresse` (`adresseid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `personid`
