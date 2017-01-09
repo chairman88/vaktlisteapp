@@ -31,6 +31,24 @@
        
         <!-- Your custom styles (optional) -->
         <link href="css/style.css" rel="stylesheet">
+                <!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        
+        <script>
+            $('#newuser').on("submit", function(event) {
+                    event.preventDefault();
+                    var data = $("#newuser").serializeArray();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: 'functions.php',
+                    data: {data : data},
+                    dataType: 'json'
+                    
+                });
+            });
+           </script>
+
 
     </head>
 
@@ -84,37 +102,25 @@
 
         <!--Main layout-->
         <main class="p-t-6">
-           <script>
-            $('form').on("submit", function(event) {
-                    event.preventDefault();
-                    var formData = $("#newuser").serialize();
-                $.ajax({
-                    type: 'POST',
-                    url: 'functions.php',
-                    data: formData,
-                    dataType: 'json',
-                    
-                });
-           </script>
             <div class="container-fluid">   
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                      
                        <h2>Ny bruker</h2>
                       
-                        <form class="form" id="newuser" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                        <form class="form" id="newuser" action="" method="post">
 
                             
                             <div class="md-form form-group">
                                
-                                <input type="text" name="fname" class="form-control validate">
-                                <label for="fname">Fornavn</label>
+                                <input type="text" id="fn" name="fn" class="form-control validate">
+                                <label for="fn">Fornavn</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
-                                <input type="text" name="lname" class="form-control validate">
-                                <label for="lname">Etternavn</label>
+                                <input type="text" id="ln" name="ln" class="form-control validate">
+                                <label for="ln">Etternavn</label>
                                 
                             </div>
                             <div class="md-form form-group">
@@ -135,19 +141,19 @@
                                 <label for="adresse">Adresse</label>
                                 
                             </div>
-                            <div class="form-group" name="type">
+                            <div class="form-group">
                                
                                Type
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                                <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+                                <input type="radio" id="option-1" class="mdl-radio__button" name="type" value="1" checked>
                                 <span class="mdl-radio__label">Admin</span>
                             </label>
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2" >
+                                <input type="radio" id="option-2" class="mdl-radio__button" name="type" value="2" >
                                 <span class="mdl-radio__label">Assistent</span>
                             </label>
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                                <input type="radio" id="option-3" class="mdl-radio__button" name="options" value="3" >
+                                <input type="radio" id="option-3" class="mdl-radio__button" name="type" value="3" >
                                 <span class="mdl-radio__label">Bruker</span>
                             </label>
 
@@ -177,9 +183,7 @@
         <!--/Main layout-->
 
         <!-- SCRIPTS -->
-
-        <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        
 
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="js/tether.min.js"></script>
