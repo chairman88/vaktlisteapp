@@ -36,6 +36,20 @@
             <?php
 				require_once('db.php');					// Create Database.
 			?>
+			<script>
+            $(document).ready(function(event) {
+                    event.preventDefault();
+    
+                $.ajax({
+                    url: 'functions.php',
+                    data: "",
+                    dataType: 'json',
+                    success: function(data) {
+                        
+                    }
+                });
+            });
+           </script>
 
 
         <!--Navigation-->
@@ -86,7 +100,7 @@
         <main class="p-t-6">
             <div class="container-fluid">   
                 <div class="row">
-                    <div class="col-lg-6 col-sm-12 col-xs-12">
+                    <div id="brukere" class="col-lg-6 col-sm-12 col-xs-12">
                        <h2>Aktive assistenter</h2>
 
                         <table id="1" class="table">

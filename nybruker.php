@@ -35,7 +35,7 @@
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         
         <script>
-            $('#newuser').on("submit", function(event) {
+            $('#newuser button').on("click", function(event) {
                     event.preventDefault();
                     var data = $("#newuser").serializeArray();
     
@@ -44,10 +44,15 @@
                     url: 'functions.php',
                     data: {data : data},
                     dataType: 'json',
-                    success: function(data) {
-                    
+                    success: function() {
+                        
+                        alert('success');
+                    },
+                    error: function(){
+                        alert('failure');
                     }
                 });
+                return false;
             });
            </script>
 
@@ -111,6 +116,7 @@
                        <h4>Ny bruker</h4>
                       
                         <form class="form" id="newuser" action="" method="post">
+                        <h1 class="1"></h1>
 
                             
                             <div class="md-form form-group">
@@ -186,7 +192,7 @@
                                 <label for="passord">Passord</label>
                                 
                             </div>
-                            <button type="submit" class="btn btn-primary">Lagre</button>
+                            <button class="btn btn-primary">Lagre</button>
                             </form>
                     </div>
                     
