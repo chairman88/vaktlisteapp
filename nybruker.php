@@ -4,8 +4,9 @@
     <head>
     <?php
 
+        
+        
  	require_once 'db.php';
-    require_once 'functions.php';
 	
 
  	?>
@@ -34,27 +35,7 @@
                 <!-- JQuery -->
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         
-        <script>
-            $('#newuser button').on("click", function(event) {
-                    event.preventDefault();
-                    var data = $("#newuser").serializeArray();
-    
-                $.ajax({
-                    type: 'POST',
-                    url: 'functions.php',
-                    data: {data : data},
-                    dataType: 'json',
-                    success: function() {
-                        
-                        alert('success');
-                    },
-                    error: function(){
-                        alert('failure');
-                    }
-                });
-                return false;
-            });
-           </script>
+        
 
 
     </head>
@@ -133,31 +114,31 @@
                             </div>
                             <div class="md-form form-group">
                                
-                                <input type="text" name="tlf" class="form-control validate">
+                                <input type="number" id="tlf" name="tlf" class="form-control validate">
                                 <label for="tlf">Tlf</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
-                                <input type="text" name="epost" class="form-control validate">
+                                <input type="email" id="epost" name="epost" class="form-control validate">
                                 <label for="epost">E-postadressse</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
-                                <input type="text" name="postnummer" class="form-control validate">
+                                <input type="number" id="postnummer" name="postnummer" min="0000" max="9999" class="form-control validate">
                                 <label for="postnummer">Postnummer</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
-                                <input type="text" name="poststed" class="form-control validate">
+                                <input type="text" id="poststed" name="poststed" class="form-control validate">
                                 <label for="poststed">Poststed</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
-                                <input type="text" name="adresse" class="form-control validate">
+                                <input type="text" id="adresse" name="adresse" class="form-control validate">
                                 <label for="adresse">Adresse</label>
                                 
                             </div>
@@ -165,15 +146,19 @@
                                
                                Type
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                                <input type="radio" id="option-1" class="mdl-radio__button" name="type" value="1" checked>
+                                <input type="radio" id="option-1" class="mdl-radio__button" id="type" name="type" value="admin" checked>
                                 <span class="mdl-radio__label">Admin</span>
                             </label>
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                <input type="radio" id="option-2" class="mdl-radio__button" name="type" value="2" >
+                                <input type="radio" id="option-2" class="mdl-radio__button" id="type" name="type" value="assistent" >
                                 <span class="mdl-radio__label">Assistent</span>
                             </label>
                             <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
-                                <input type="radio" id="option-3" class="mdl-radio__button" name="type" value="3" >
+                                <input type="radio" id="option-3" class="mdl-radio__button" id="type" name="type" value="iassistent" >
+                                <span class="mdl-radio__label">Inaktiv Assistent</span>
+                            </label>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-4">
+                                <input type="radio" id="option-4" class="mdl-radio__button" id="type" name="type" value="bruker" >
                                 <span class="mdl-radio__label">Bruker</span>
                             </label>
 
@@ -181,14 +166,14 @@
                             </div>
                             <div class="md-form form-group">
                                
-                                <input type="text" name="brukernavn" class="form-control validate">
+                                <input type="text" id="brukernavn" name="brukernavn" class="form-control validate">
                                 <label for="brukernavn">Brukernavn</label>
                                 
                             </div>
                             
                             <div class="md-form form-group">
                                
-                                <input type="password" name="passord" class="form-control validate">
+                                <input type="password" id="passord" name="passord" class="form-control validate">
                                 <label for="passord">Passord</label>
                                 
                             </div>
@@ -217,7 +202,44 @@
         <!-- MDL -->
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 
+        <script>
+            $('#newuser button').on("click", function() {
+                   
+            var fn = $("#fn").val();
+            var ln = $("#ln").val();
+            var tlf = $("#tlf").val();
+            var epost = $("#epost").val();
+            var postnummer = $("#postnummer").val();
+            var poststed = $("#poststed").val();
+            var adresse = $("#adresse").val();
+            var type = $("input[name=type]:checked").val();
+            var brukernavn = $("#brukernavn").val();
+            var passord = $("#passord").val();
 
+            // Returns successful data submission message when the entered information is stored in database.
+            var dataString = 'fn='+ fn + '&ln='+ ln + '&tlf='+ tlf + '&epost='+ epost + '&postnummer='+ postnummer + '&poststed='+ poststed + '&adresse='+ adresse + '&type='+ type + '&brukernavn='+ brukernavn + '&passord='+ passord;            if(fn==''||ln==''||tlf==''||epost==''||postnummer==''||poststed==''||adresse==''||type==''||brukernavn==''||passord=='')
+            {
+                alert("Please Fill All Fields");
+            }
+            else
+            { 
+                $.ajax({
+                    type: 'POST',
+                    url: 'functions.php',
+                    data: dataString,
+                    cache: false,
+                    success: function() {
+                        alert('success');
+                        $("#newuser")[0].reset();
+                    },
+                    error: function(){
+                        alert('failure');
+                    }
+                });
+            }
+                return false;
+            });
+           </script>
 
     </body>
 

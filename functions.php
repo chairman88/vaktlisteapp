@@ -1,5 +1,7 @@
 <?php
 
+//header("Content-type: application/json");
+
 include 'db.php';
 
      if ( isset($_POST['fn'], $_POST['ln'], $_POST['tlf'], $_POST['epost'], $_POST['postnummer'], $_POST['poststed'], $_POST['adresse'], $_POST['type'], $_POST['brukernavn'], $_POST['passord']) && !empty($_POST['fn']) && !empty($_POST['ln']) && !empty($_POST['tlf']) && !empty($_POST['epost']) && !empty($_POST['postnummer']) && !empty($_POST['poststed']) && !empty($_POST['adresse']) && !empty($_POST['type']) && !empty($_POST['brukernavn']) && !empty($_POST['passord'])) {
@@ -43,15 +45,20 @@ include 'db.php';
          
 	}
 
-     if (stripos($_SERVER['REQUEST_URI'], 'index.php')){
+          
          $sql = "SELECT fornavn, etternavn, type
          FROM person";
-         $stmt = $db->prepare($sql);
-         $stmt->execute();
-         $row = $stmt->fetchAll();
-         echo json_encode($row);
+         $data = array();
+         $stmt = $db->query($sql);
+         $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+         foreach ($row as $key => $value) {
+            $data[$key] = $value;
+            $result = json_encode($data);
+         }
+         echo $result; 
 
-    }
+         
+    
 
 
 ?>

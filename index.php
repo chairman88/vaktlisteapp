@@ -29,26 +29,175 @@
         <link href="css/style.css" rel="stylesheet">
         
         <link rel="manifest" href="manifest.json">
-
+<!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     </head>
 
     <body>
             <?php
 				require_once('db.php');					// Create Database.
 			?>
-			<script>
-            $(document).ready(function(event) {
-                    event.preventDefault();
+			<script id="source" language="javascript" type="text/javascript">
     
+                $(function ()
+                  {
+                
                 $.ajax({
                     url: 'functions.php',
-                    data: "",
-                    dataType: 'json',
-                    success: function(data) {
-                        
-                    }
+                  
+                    type:'POST',
+                    success:function(data){
+                        var result = $.parseJSON(data);
+                        $.each(result, function(key, value){
+                        $.each(value, function(k, v){
+                        var type = value['type']
+                        if(type == "assistent"){
+                            if(k === "fornavn"){
+                                $("#aktivebrukere >tbody:last").append(
+                                    $('<tr>').append(
+                                        $('<td>').append(v)
+                                        .append(
+                                            $('</td>').append(
+                                                    $('</tr>')
+                                            )
+                                        )
+                                    )
+                                );
+                        }
+                        if(k === "etternavn"){
+                            $("#aktivebrukere >tbody >tr:last").append(
+
+                                $('<td>').append(v)
+                                .append(
+                                    $('</td>')
+                                    )
+                                );
+                        }
+                        if(k === "type"){
+                            $("#aktivebrukere >tbody >tr:last").append(
+
+                            
+
+                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="red-text"><i class="fa fa-arrow-down"></i></a><a class="black-text"><i class="fa fa-user-times"></i></a>')
+                                .append(
+                                    $('</td>')
+                                    )
+                                    
+                                );
+                        }    
+                        }
+                        if(type == "iassistent"){
+                            if(k === "fornavn"){
+                                $("#inaktivebrukere >tbody:last").append(
+                                    $('<tr>').append(
+                                        $('<td>').append(v)
+                                        .append(
+                                            $('</td>').append(
+                                                    $('</tr>')
+                                            )
+                                        )
+                                    )
+                                );
+                        }
+                        if(k === "etternavn"){
+                            $("#inaktivebrukere >tbody >tr:last").append(
+
+                                $('<td>').append(v)
+                                .append(
+                                    $('</td>')
+                                    )
+                                );
+                        }
+                        if(k === "type"){
+                            $("#inaktivebrukere >tbody >tr:last").append(
+
+                            
+
+                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="green-text"><i class="fa fa-arrow-up"></i></a><a class="black-text"><i class="fa fa-user-times"></i></a>')
+                                .append(
+                                    $('</td>')
+                                    )
+                                    
+                                );
+                        }
+                        }
+                        if(type == "admin"){
+                            if(k === "fornavn"){
+                                $("#admin >tbody:last").append(
+                                    $('<tr>').append(
+                                        $('<td>').append(v)
+                                        .append(
+                                            $('</td>').append(
+                                                    $('</tr>')
+                                            )
+                                        )
+                                    )
+                                );
+                        }
+                        if(k === "etternavn"){
+                            $("#admin >tbody >tr:last").append(
+
+                                $('<td>').append(v)
+                                .append(
+                                    $('</td>')
+                                    )
+                                );
+                        }
+                        if(k === "type"){
+                            $("#admin >tbody >tr:last").append(
+
+                            
+
+                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="black-text"><i class="fa fa-user-times"></i></a>')
+                                .append(
+                                    $('</td>')
+                                    )
+                                    
+                                );
+                        }    
+                        }
+                        if(type == "bruker"){
+                            if(k === "fornavn"){
+                                $("#bruker >tbody:last").append(
+                                    $('<tr>').append(
+                                        $('<td>').append(v)
+                                        .append(
+                                            $('</td>').append(
+                                                    $('</tr>')
+                                            )
+                                        )
+                                    )
+                                );
+                        }
+                        if(k === "etternavn"){
+                            $("#bruker >tbody >tr:last").append(
+
+                                $('<td>').append(v)
+                                .append(
+                                    $('</td>')
+                                    )
+                                );
+                        }
+                        if(k === "type"){
+                            $("#bruker >tbody >tr:last").append(
+
+                            
+
+                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="black-text"><i class="fa fa-user-times"></i></a>')
+                                .append(
+                                    $('</td>')
+                                    )
+                                    
+                                );
+                        }
+                        }
+                            
+
+                    });
                 });
-            });
+            }
+                });
+                });
            </script>
 
 
@@ -101,9 +250,10 @@
             <div class="container-fluid">   
                 <div class="row">
                     <div id="brukere" class="col-lg-6 col-sm-12 col-xs-12">
-                       <h2>Aktive assistenter</h2>
+                       <div id="1"></div>
+                        <h2>Aktive assistenter</h2>
 
-                        <table id="1" class="table">
+                        <table id="aktivebrukere" class="table">
                             <thead>
                                 <tr>
                                     <th>Fornavn</th>
@@ -112,33 +262,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Eirik</td>
-                                    <td>Bekkemellem</td>
-                                    <td>
-                                        <a class="blue-text" href="endrebruker.html"><i class="fa fa-pencil"></i></a>
-                                        <a class="red-text"><i class="fa fa-arrow-down"></i></a>
-                                        <a class="black-text"><i class="fa fa-user-times"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Øyvind</td>
-                                    <td>Bjerke</td>
-                                    <td>
-                                        <a class="red-text"><i class="fa fa-arrow-down"></i></a>
-                                        <a class="black-text"><i class="fa fa-user-times"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Julie</td>
-                                    <td>Gulliksen</td>
-                                    <td>
-                                        <a class="red-text"><i class="fa fa-arrow-down"></i></a>
-                                        <a class="black-text"><i class="fa fa-user-times"></i></a>
-                                    </td>
-                                </tr>
+                             
 
                             </tbody>
                         </table>
@@ -147,7 +271,7 @@
                          
                        <h2>Inaktive assistenter</h2>
 
-                        <table class="table">
+                        <table id="inaktivebrukere" class="table">
                             <thead>
                                 <tr>
                                     <th>Fornavn</th>
@@ -156,32 +280,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Åge</td>
-                                    <td>Tangsveen</td>
-                                    <td>
-                                        <a class="green-text"><i class="fa fa-arrow-up"></i></a>
-                                        <a class="black-text"><i class="fa fa-user-times"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Ketil</td>
-                                    <td>Owren</td>
-                                    <td>
-                                        <a class="green-text"><i class="fa fa-arrow-up"></i></a>
-                                        <a class="black-text"><i class="fa fa-user-times"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Thomas</td>
-                                    <td>Haug</td>
-                                    <td>
-                                        <a class="green-text"><i class="fa fa-arrow-up"></i></a>
-                                        <a class="black-text"><i class="fa fa-user-times"></i></a>
-                                    </td>
-                                </tr>
+                                
 
                             </tbody>
                         </table>
@@ -199,7 +298,7 @@
                     <div class="col-lg-6 col-sm-12 col-xs-12">
                        <h2>Admin</h2>
 
-                        <table class="table">
+                        <table id="admin" class="table">
                             <thead>
                                 <tr>
                                     <th>Fornavn</th>
@@ -208,14 +307,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Snorre</td>
-                                    <td>Gjøby</td>
-                                    <td>
-                                        <a class="blue-text"><i class="fa fa-pencil"></i></a>
-                                        <a class="black-text"><i class="fa fa-user-times"></i></a>
-                                    </td>
-                                </tr>
+                                
                         
                             </tbody>
                         </table>
@@ -223,7 +315,7 @@
                     <div class="col-lg-6 col-sm-12 col-xs-12">
                          <h2>Brukere</h2>
 
-                        <table class="table">
+                        <table id="bruker" class="table">
                             <thead>
                                 <tr>
                                     <th>Fornavn</th>
@@ -232,14 +324,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Morten</td>
-                                    <td>Kleven</td>
-                                    <td>
-                                        <a class="blue-text"><i class="fa fa-pencil"></i></a>
-                                        <a class="black-text"><i class="fa fa-user-times"></i></a>
-                                    </td>
-                                </tr>
+                                
                         
                             </tbody>
                         </table>
@@ -262,8 +347,7 @@
 
         <!-- SCRIPTS -->
 
-        <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        
 
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="js/tether.min.js"></script>
