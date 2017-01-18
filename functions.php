@@ -15,32 +15,24 @@ include 'db.php';
 		 $type = $_POST['type'];
          $brukernavn = $_POST['brukernavn'];	   
 		 $passord = $_POST['passord'];
-         $sql1 = "INSERT INTO person (fornavn, etternavn, telefonnummer, epostadresse, type)
-		       VALUES (:fornavn, :etternavn, :tlf, :epost, :type)";
-         $sql2 = "INSERT INTO adresse (postnummer, poststed, adresse)
-		       VALUES (:postnummer, :poststed, :adresse)";
-         $sql3 = "INSERT INTO brukere (brukernavn, passord)
-		       VALUES (:brukernavn, :passord)";
+         $sql = "INSERT INTO person (fornavn, etternavn, telefonnummer, epostadresse, postnummer, poststed, adresse, type, brukernavn, passord)
+		       VALUES (:fornavn, :etternavn, :tlf, :epost, :postnummer, :poststed, :adresse, :type, :brukernavn, :passord)";
+         
         
-         $stmt = $db->prepare($sql1);
+         $stmt = $db->prepare($sql);
          $stmt->bindParam(':fornavn', $fornavn);
          $stmt->bindParam(':etternavn', $etternavn);
          $stmt->bindParam(':tlf', $tlf);
          $stmt->bindParam(':epost', $epost);
-         $stmt->bindParam(':type', $type);
-         $stmt->execute();
-         
-         $stmt = $db->prepare($sql2);
          $stmt->bindParam(':postnummer', $postnummer);
          $stmt->bindParam(':poststed', $poststed);
          $stmt->bindParam(':adresse', $adresse);
-         $stmt->execute();
-         
-         
-         $stmt = $db->prepare($sql3);
+         $stmt->bindParam(':type', $type);
          $stmt->bindParam(':brukernavn', $brukernavn);
          $stmt->bindParam(':passord', $passord);
          $stmt->execute();
+         
+         
  
          
 	}

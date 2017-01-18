@@ -58,11 +58,11 @@
                   <!--Collapse content-->
                     <div class="collapse navbar-toggleable-xs" id="collapseEx">
                         <!--Navbar Brand-->
-                        <a class="navbar-brand" href="index.html">@Work - Admin</a>
+                        <a class="navbar-brand" href="index.php">@Work - Admin</a>
                         <!--Links-->
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">Assistenter <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="index.php">Assistenter <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="vakter.html">Vakter</a>
@@ -97,7 +97,6 @@
                        <h4>Ny bruker</h4>
                       
                         <form class="form" id="newuser" action="" method="post">
-                        <h1 class="1"></h1>
 
                             
                             <div class="md-form form-group">
@@ -175,9 +174,11 @@
                                
                                 <input type="password" id="passord" name="passord" class="form-control validate">
                                 <label for="passord">Passord</label>
-                                
+                                <h1 class="1"></h1>
+
                             </div>
                             <button class="btn btn-primary">Lagre</button>
+                            
                             </form>
                     </div>
                     
@@ -229,7 +230,7 @@
                     data: dataString,
                     cache: false,
                     success: function() {
-                        alert('success');
+                        $( '.1' ).text( 'Lagt inn i databasen!' ).css( 'color', 'red' ).show().fadeOut( 3000 );
                         $("#newuser")[0].reset();
                     },
                     error: function(){
