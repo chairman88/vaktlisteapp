@@ -41,7 +41,22 @@
     </head>
 
     <body>
-
+           <script>
+    
+                $(function ()
+                  {
+                var id ="<?php echo $_GET['id']; ?>";
+                var dataString = 'id='+ id;    
+                $.ajax({
+                    type:'GET',
+                    url: 'api/hentBruker.php',
+                    data: dataString,
+                    success:function(){
+                        
+            }
+                });
+                });
+           </script>
 
 
         <!--Navigation-->
@@ -94,7 +109,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                      
-                       <h4>Ny bruker</h4>
+                       <h4>Endre bruker</h4>
                       
                         <form class="form" id="newuser" action="" method="post">
 
@@ -226,11 +241,11 @@
             { 
                 $.ajax({
                     type: 'POST',
-                    url: 'api/leggTilNyBruker.php',
+                    url: 'api/endreBruker.php',
                     data: dataString,
                     cache: false,
                     success: function() {
-                        $( '.1' ).append( '<div class="alert alert-success" role="alert">Bruker lagt inn i databasen</div>').fadeOut( 3000 );
+                        $( '.1' ).append( '<div class="alert alert-success" role="alert">Bruker endret</div>').fadeOut( 3000 );
                         $("#newuser")[0].reset();
                     },
                     error: function(){

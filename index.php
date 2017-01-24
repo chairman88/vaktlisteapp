@@ -43,14 +43,14 @@
                   {
                 
                 $.ajax({
-                    url: 'functions.php',
-                  
                     type:'POST',
+                    url: 'api/visBrukere.php',
                     success:function(data){
                         var result = $.parseJSON(data);
                         $.each(result, function(key, value){
                         $.each(value, function(k, v){
-                        var type = value['type']
+                        var type = value['type'];
+                        var personid = value['personid'];
                         if(type == "assistent"){
                             if(k === "fornavn"){
                                 $("#aktivebrukere >tbody:last").append(
@@ -78,12 +78,17 @@
 
                             
 
-                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="red-text"><i class="fa fa-arrow-down"></i></a><a class="black-text"><i class="fa fa-user-times"></i></a>')
-                                .append(
+                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="red-text"><i class="fa fa-arrow-down"></i></a><a class="black-text delete" id="'+ personid +'"  data-toggle="modal" data-target="#myModal"><i class="fa fa-user-times"></i></a>')
+                                                    .append(
                                     $('</td>')
                                     )
                                     
                                 );
+                            $('.delete').on('click', function() {
+                                deleteid = $(this).attr("id");
+                        
+            
+                });
                         }    
                         }
                         if(type == "iassistent"){
@@ -113,12 +118,17 @@
 
                             
 
-                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="green-text"><i class="fa fa-arrow-up"></i></a><a class="black-text"><i class="fa fa-user-times"></i></a>')
+                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="green-text"><i class="fa fa-arrow-up"></i></a><a class="black-text delete" id="'+ personid +'"  data-toggle="modal" data-target="#myModal"><i class="fa fa-user-times"></i></a>')
                                 .append(
                                     $('</td>')
                                     )
                                     
                                 );
+                            $('.delete').on('click', function() {
+                                deleteid = $(this).attr("id");
+                        
+            
+                });
                         }
                         }
                         if(type == "admin"){
@@ -148,12 +158,17 @@
 
                             
 
-                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="black-text"><i class="fa fa-user-times"></i></a>')
+                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="black-text delete" id="'+ personid +'"  data-toggle="modal" data-target="#myModal"><i class="fa fa-user-times"></i></a>')
                                 .append(
                                     $('</td>')
                                     )
                                     
                                 );
+                            $('.delete').on('click', function() {
+                                deleteid = $(this).attr("id");
+                        
+            
+                });
                         }    
                         }
                         if(type == "bruker"){
@@ -183,12 +198,17 @@
 
                             
 
-                                $('<td>').append('<a class="blue-text"><i class="fa fa-pencil"></i></a><a class="black-text"><i class="fa fa-user-times"></i></a>')
+                                $('<td>').append('<a href="endrebruker.php?id='+ personid +'" class="blue-text"><i class="fa fa-pencil"></i></a><a class="black-text delete" id="'+ personid +'"  data-toggle="modal" data-target="#myModal"><i class="fa fa-user-times"></i></a>')
                                 .append(
                                     $('</td>')
                                     )
                                     
                                 );
+                            $('.delete').on('click', function() {
+                                deleteid = $(this).attr("id");
+                        
+            
+                });
                         }
                         }
                             
@@ -250,6 +270,23 @@
             <div class="container-fluid">   
                 <div class="row">
                     <div id="brukere" class="col-lg-6 col-sm-12 col-xs-12">
+                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Slett bruker</h4>
+                              </div>
+                              <div class="modal-body">
+                                Er du sikker på at du vil slette?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Nei</button>
+                                <button type="button" id="slett" class="btn btn-primary">Ja</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                        <div id="1"></div>
                         <h2>Aktive assistenter</h2>
 
@@ -347,7 +384,33 @@
 
         <!-- SCRIPTS -->
 
+        <script>
+
+            
+                              
+            $("#slett").on("click", function() {
+            
+                var id = deleteid;
+                var dataString = 'id='+ id;
+                
+            $.ajax({
+                    type: 'POST',
+                    url: 'api/slettBruker.php',
+                    data: dataString,
+                    success: function() {
+                       
+                        location.reload();
+                        
+                    },
+                    error: function(){
+                        
+                    }
+                });
+            
+                });
         
+        
+        </script>
 
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="js/tether.min.js"></script>
