@@ -4,19 +4,20 @@
 
 include 'db.php';
 
-     if ( isset($_POST['fn'], $_POST['ln'], $_POST['tlf'], $_POST['epost'], $_POST['postnummer'], $_POST['poststed'], $_POST['adresse'], $_POST['type'], $_POST['brukernavn'], $_POST['passord']) && !empty($_POST['fn']) && !empty($_POST['ln']) && !empty($_POST['tlf']) && !empty($_POST['epost']) && !empty($_POST['postnummer']) && !empty($_POST['poststed']) && !empty($_POST['adresse']) && !empty($_POST['type']) && !empty($_POST['brukernavn']) && !empty($_POST['passord'])) {
-		 $fornavn = $_POST['fn'];	   
-		 $etternavn = $_POST['ln'];	   
-         $tlf = $_POST['tlf'];	   
-		 $epost = $_POST['epost'];
-         $postnummer = $_POST['postnummer'];	   
-		 $poststed = $_POST['poststed'];
-         $adresse = $_POST['adresse'];	   
-		 $type = $_POST['type'];
-         $brukernavn = $_POST['brukernavn'];	   
-		 $passord = $_POST['passord'];
-         $sql = "INSERT INTO person (fornavn, etternavn, telefonnummer, epostadresse, postnummer, poststed, adresse, type, brukernavn, passord)
-		       VALUES (:fornavn, :etternavn, :tlf, :epost, :postnummer, :poststed, :adresse, :type, :brukernavn, :passord)";
+         $id = $_GET['id'];
+
+		 $fornavn = $_GET['fn'];	   
+		 $etternavn = $_GET['ln'];	   
+         $tlf = $_GET['tlf'];	   
+		 $epost = $_GET['epost'];
+         $postnummer = $_GET['postnummer'];	   
+		 $poststed = $_GET['poststed'];
+         $adresse = $_GET['adresse'];	   
+		 $type = $_GET['type'];
+         $brukernavn = $_GET['brukernavn'];	   
+		 $passord = $_GET['passord'];
+
+         $sql = "UPDATE person SET fornavn = :fornavn, etternavn = :etternavn, telefonnummer = :tlf, epostadresse = :epost, postnummer = :postnummer, poststed = :poststed, adresse = :adresse, type = :type, brukernavn = :brukernavn, passord = :passord WHERE person.personid = :id";
          
         
          $stmt = $db->prepare($sql);
@@ -30,12 +31,13 @@ include 'db.php';
          $stmt->bindParam(':type', $type);
          $stmt->bindParam(':brukernavn', $brukernavn);
          $stmt->bindParam(':passord', $passord);
+         $stmt->bindParam(':id', $id);
          $stmt->execute();
          
          
  
          
-	}
+	
 
 
 ?>

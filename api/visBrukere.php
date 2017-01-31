@@ -6,7 +6,7 @@ include 'db.php';
 
 
           
-         $sql = "SELECT personid, fornavn, etternavn, type
+         $sql = "SELECT personid, fornavn, etternavn, telefonnummer, epostadresse, postnummer, poststed, adresse, type
          FROM person";
          $data = array();
          $stmt = $db->query($sql);
