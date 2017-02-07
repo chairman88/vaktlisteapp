@@ -29,7 +29,8 @@
         <link href="css/style.css" rel="stylesheet">
         
         <link rel="manifest" href="manifest.json">
-<!-- JQuery -->
+        
+        <!-- JQuery -->
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
     </head>
 
@@ -245,14 +246,14 @@
                   <!--Collapse content-->
                     <div class="collapse navbar-toggleable-xs" id="collapseEx">
                         <!--Navbar Brand-->
-                        <a class="navbar-brand" href="index.html">@Work - Admin</a>
+                        <a class="navbar-brand" href="index.php">@Work - Admin</a>
                         <!--Links-->
                         <ul class="nav navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html">Assistenter <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="index.php">Assistenter <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="vakter.html">Vakter</a>
+                                <a class="nav-link" href="vakter.php">Vakter</a>
                             </li>
 
 

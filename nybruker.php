@@ -231,7 +231,8 @@
                     cache: false,
                     success: function() {
                         $( '.1' ).append( '<div class="alert alert-success" role="alert">Bruker lagt inn i databasen</div>').fadeOut( 3000 );
-                        $("#newuser")[0].reset();
+                        
+                        location.reload();
                     },
                     error: function(){
                         alert('failure');
