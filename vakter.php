@@ -25,33 +25,15 @@
         
         <!-- Your custom styles (optional) -->
         <link href="css/style.css" rel="stylesheet">
+        
+        <!-- JQuery -->
+        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
     </head>
 
     <body>
 
-    <script id="source" language="javascript" type="text/javascript">
     
-                $(function ()
-                  {
-                
-                $.ajax({
-                    type:'POST',
-                    url: 'api/visVakter.php',
-                    success:function(data){
-                        var result = $.parseJSON(data);
-                        $.each(result, function(key, value){
-                        $.each(value, function(k, v){
-                        
-                        
-                            
-
-                    });
-                });
-            }
-                });
-                });
-           </script>
 
 
         <!--Navigation-->
@@ -105,102 +87,44 @@
                    <div class="col-lg-12">
                     <h2>Vakter</h2>
                        <a href="nyevakter.php"><i class="fa fa-calendar-plus-o fa-4x"></i> </a>
-                    <h3>Uke 49</h3>
+                    
                      <div class="table-responsive" id="pc">
                       <table class="table table-bordered">
                           <thead class="thead-inverse">
+                                <?php
+                                // Hentet fra http://stackoverflow.com/questions/4439722/finding-first-day-of-week-via-php
+                                function week_start_date($wk_num, $yr, $addDays)
+                                {
+                                  $wk_ts  = strtotime('+' . $wk_num . ' weeks', strtotime($yr . '0101'));
+                                  $mon_ts = strtotime('-' . date('w', $wk_ts) + $addDays + 1 . ' days', $wk_ts);
+                                  return $mon_ts;
+                                } // Hentet fra http://stackoverflow.com/questions/4439722/finding-first-day-of-week-via-php
+                                ?>
+
                                <tr>
                                    <th>Assistent</th>
-                                   <th>Man 05.12.16 <a class="white-text" href="endrevakt.html"><i class="fa fa-pencil"></i></a></th>
-                                   <th>Tir 06.12.16 </th>
-                                   <th>Ons 07.12.16 </th>
-                                   <th>Tor 08.12.16 </th>
-                                   <th>Fre 09.12.16 </th>
-                                   <th>Lør 10.12.16 </th>
-                                   <th>Søn 11.12.16 </th>
+                                   <?php
+                                   // Skriv ut heading
+                                   $weekdays = ['Søn','Man','Tir','Ons','Tor','Fre','Lør'];
+
+                                   for ($i=0; $i<7; $i++) {
+                                       echo "<th>";
+                                       echo $weekdays[date('w', week_start_date(5, 2017, $i))].' '.date('j.n.Y', week_start_date(5, 2017, $i));
+                                       echo "</th>";
+                                   }
+                                   
+
+
+                                   ?>
+                                   
                                </tr>
                            </thead>
                            <tbody>
-                               <tr>
-                                   <th scope="row">Tom Anders Bakken</th>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td>17.00 - 23.00</td>
-                                   <td>17.00 - 24.00</td>
-                                   <td>09.00 - 16.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Øyvind Bjerke</th>
-                                   <td></td>
-                                   <td>17.00 - 23.00</td>
-                                   <td></td>
-                                   <td>17.00 - 23.00</td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Inger Marie Gjøby</th>
-                                   <td>04.00 - 10.00</td>
-                                   <td>04.00 - 10.00</td>
-                                   <td>04.00 - 10.00</td>
-                                   <td>04.00 - 10.00</td>
-                                   <td>04.00 - 10.00</td>
-                                   <td>04.00 - 10.00</td>
-                                   <td></td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Kay-Kjetil Pedersen</th>
-                                   <td>17.00 - 23.00</td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Sindre Løvdahl Tafjord</th>
-                                   <td></td>
-                                   <td></td>
-                                   <td>17.00 - 23.00</td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Eirik Bekkemellem</th>
-                                   <td>09.00 - 16.00</td>
-                                   <td>09.00 - 16.00</td>
-                                   <td>09.00 - 16.00</td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Eve Julie Gulliksen</th>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td>09.00 - 16.00</td>
-                                   <td>09.00 - 16.00</td>
-                                   <td></td>
-                                   <td></td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Ole Andre Slettum</th>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td></td>
-                                   <td>09.00 - 16.00</td>
-                                   <td>17.00 - 23.00</td>
-                               </tr>
+                            <?php
+                               
+                            include 'api/visVaktertab.php';
+                               
+                               ?>
                            </tbody>
                         </table>
                         </div>
@@ -211,128 +135,35 @@
 
                     <div class="table-responsive" id="mobile">
                       <table class="table table-bordered">
-                          <thead class="thead-inverse">
-                               <tr>
-                                   <th>Assistent</th>
-                                   <th>Man 05.12.16 <a class="white-text" href="endrevakt.html"><i class="fa fa-pencil"></i></a></th>
-                                </tr>
+                         <tbody>
+                           <thead class="thead-inverse">
+                               
                           </thead>
-                               <tr>
-                                   <th scope="row">Inger Marie Gjøby</th>
-                                   <td>04.00 - 10.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Eirik Bekkemellem</th>
-                                   <td>09.00 - 16.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Kay-Kjetil Pedersen</th>
-                                   <td>17.00 - 23.00</td>
-                               </tr>
+                               
                         <thead class="thead-inverse">
-                               <tr>
-                                   <th>Assistent</th>
-                                   <th>Tir 06.12.16 <a class="white-text"><i class="fa fa-pencil"></i></a></th>
-                                </tr>
+                               
                         </thead>
-                               <tr>
-                                   <th scope="row">Inger Marie Gjøby</th>
-                                   <td>04.00 - 10.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Eirik Bekkemellem</th>
-                                   <td>09.00 - 16.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Øyvind Bjerke</th>
-                                   <td>17.00 - 23.00</td>
-                               </tr>
+                               
                         <thead class="thead-inverse">
-                               <tr>
-                                   <th>Assistent</th>
-                                   <th>Ons 07.12.16 <a class="white-text"><i class="fa fa-pencil"></i></a></th>
-                                </tr>
+                               
                           </thead>
-                               <tr>
-                                   <th scope="row">Inger Marie Gjøby</th>
-                                   <td>04.00 - 10.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Eirik Bekkemellem</th>
-                                   <td>09.00 - 16.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Sindre Løvdahl Tafjord</th>
-                                   <td>17.00 - 23.00</td>
-                               </tr>
+                               
                         <thead class="thead-inverse">
-                               <tr>
-                                   <th>Assistent</th>
-                                   <th>Tor 08.12.16 <a class="white-text"><i class="fa fa-pencil"></i></a></th>
-                                </tr>
+                              
                           </thead>
-                               <tr>
-                                   <th scope="row">Inger Marie Gjøby</th>
-                                   <td>04.00 - 10.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Julie Gulliksen</th>
-                                   <td>09.00 - 16.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Sindre Løvdahl Tafjord</th>
-                                   <td>17.00 - 23.00</td>
-                               </tr>
+                               
                         <thead class="thead-inverse">
-                               <tr>
-                                   <th>Assistent</th>
-                                   <th>Fre 09.12.16 <a class="white-text"><i class="fa fa-pencil"></i></a></th>
-                                </tr>
+                               
                           </thead>
-                               <tr>
-                                   <th scope="row">Inger Marie Gjøby</th>
-                                   <td>04.00 - 10.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Julie Gulliksen</th>
-                                   <td>09.00 - 16.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Tom Anders Bakken</th>
-                                   <td>17.00 - 23.00</td>
-                               </tr>
+                               
                         <thead class="thead-inverse">
-                               <tr>
-                                   <th>Assistent</th>
-                                   <th>Lør 10.12.16 <a class="white-text"><i class="fa fa-pencil"></i></a></th>
-                                </tr>
+                               
                           </thead>
-                               <tr>
-                                   <th scope="row">Inger Marie Gjøby</th>
-                                   <td>04.00 - 10.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Ole Andre Slettum</th>
-                                   <td>09.00 - 16.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Tom Anders Bakken</th>
-                                   <td>17.00 - 24.00</td>
-                               </tr>
+                               
                         <thead class="thead-inverse">
-                               <tr>
-                                   <th>Assistent</th>
-                                   <th>Søn 11.12.16 <a class="white-text"><i class="fa fa-pencil"></i></a></th>
-                                </tr>
+                               
                           </thead>
-                               <tr>
-                                   <th scope="row">Tom Anders Bakken</th>
-                                   <td>09.00 - 16.00</td>
-                               </tr>
-                               <tr>
-                                   <th scope="row">Ole Andre Slettum</th>
-                                   <td>17.00 - 23.00</td>
-                               </tr>
+                               
                            </tbody>
                         </table>
                     </div>
@@ -346,9 +177,36 @@
         <!--/Main layout-->
 
         <!-- SCRIPTS -->
+        <script id="source" language="javascript" type="text/javascript">
+    
+                $(function ()
+                  {
+                
+                $.ajax({
+                    type:'POST',
+                    url: 'api/visVakter.php',
+                    success:function(data){
+                        var result = $.parseJSON(data);
+                        $.each(result, function(key, value){
+                        $.each(value, function(k, v){
+                        var dato = value['dato'];
+                        var pid = value['pid'];
+                        var vaktlisteid = value['vaktlisteid'];
+                        var fra = value['fra'];
+                        var til = value['til'];
+                        var fornavn = value['fornavn'];
+                        var etternavn = value['etternavn'];
+                            $(fornavn + etternavn).appendTo("#assistent");
+                            
+                            
 
-        <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+                    });
+                });
+            }
+                });
+                });
+           </script>
+        
 
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="js/tether.min.js"></script>

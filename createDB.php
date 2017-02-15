@@ -29,14 +29,14 @@ $sth->execute();
 
 $query = "CREATE TABLE IF NOT EXISTS `heroku_8ecd2cc03a114b6`.`vaktliste` (
   `vaktlisteid` INT AUTO_INCREMENT NOT NULL,
-  `personid` INT NULL,
+  `pid` INT NULL,
   `dato` DATE NULL,
   `fra` TIME NULL,
   `til` TIME NULL,
   PRIMARY KEY (`vaktlisteid`),
-  INDEX `personid_idx` (`personid` ASC),
-  CONSTRAINT `personid`
-    FOREIGN KEY (`personid`)
+  INDEX `pid_idx` (`pid` ASC),
+  CONSTRAINT `pid`
+    FOREIGN KEY (`pid`)
     REFERENCES `heroku_8ecd2cc03a114b6`.`person` (`personid`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
