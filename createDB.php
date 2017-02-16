@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -43,6 +42,3 @@ $query = "CREATE TABLE IF NOT EXISTS `heroku_8ecd2cc03a114b6`.`vaktliste` (
     )";
 $sth = $db->prepare($query);
 $sth->execute();
-
-
-?>

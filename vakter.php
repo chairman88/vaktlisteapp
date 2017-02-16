@@ -20,12 +20,12 @@
 
         <!-- MDL -->
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
-        
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        
+
         <!-- Your custom styles (optional) -->
         <link href="css/style.css" rel="stylesheet">
-        
+
         <!-- JQuery -->
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 
@@ -33,7 +33,7 @@
 
     <body>
 
-    
+
 
 
         <!--Navigation-->
@@ -82,12 +82,12 @@
 
         <!--Main layout-->
         <main class="p-t-6">
-            <div class="container-fluid">   
+            <div class="container-fluid">
                <div class="row">
                    <div class="col-lg-12">
                     <h2>Vakter</h2>
                        <a href="nyevakter.php"><i class="fa fa-calendar-plus-o fa-4x"></i> </a>
-                    
+
                      <div class="table-responsive" id="pc">
                       <table class="table table-bordered">
                           <thead class="thead-inverse">
@@ -112,18 +112,18 @@
                                        echo $weekdays[date('w', week_start_date(5, 2017, $i))].' '.date('j.n.Y', week_start_date(5, 2017, $i));
                                        echo "</th>";
                                    }
-                                   
+
 
 
                                    ?>
-                                   
+
                                </tr>
                            </thead>
                            <tbody>
                             <?php
-                               
+
                             include 'api/visVaktertab.php';
-                               
+
                                ?>
                            </tbody>
                         </table>
@@ -137,56 +137,62 @@
                       <table class="table table-bordered">
                          <tbody>
                            <thead class="thead-inverse">
-                               
+
                           </thead>
-                               
+
                         <thead class="thead-inverse">
-                               
+
                         </thead>
-                               
+
                         <thead class="thead-inverse">
-                               
+
                           </thead>
-                               
+
                         <thead class="thead-inverse">
-                              
+
                           </thead>
-                               
+
                         <thead class="thead-inverse">
-                               
+
                           </thead>
-                               
+
                         <thead class="thead-inverse">
-                               
+
                           </thead>
-                               
+
                         <thead class="thead-inverse">
-                               
+
                           </thead>
-                               
+
                            </tbody>
                         </table>
                     </div>
                   </div>
                </div>
-               
-               
-               </div>  
-                               
+
+
+               </div>
+
         </main>
         <!--/Main layout-->
 
         <!-- SCRIPTS -->
-        <script id="source" language="javascript" type="text/javascript">
-    
+        <script id="source">
+
                 $(function ()
                   {
-                
+
                 $.ajax({
                     type:'POST',
                     url: 'api/visVakter.php',
                     success:function(data){
-                        var result = $.parseJSON(data);
+                        //var result = $.parseJSON(data);
+                        $.each (data, function (key, value) {
+                          $('#assistent_'+value['personid']+
+                            ' td[data-day-of-week="'+value['dag']+'"]').html(
+                                                value['fra']+"-"+value['til']);
+                        });
+                        /*
                         $.each(result, function(key, value){
                         $.each(value, function(k, v){
                         var dato = value['dato'];
@@ -197,16 +203,14 @@
                         var fornavn = value['fornavn'];
                         var etternavn = value['etternavn'];
                             $(fornavn + etternavn).appendTo("#assistent");
-                            
-                            
+                        */
 
-                    });
+
+                    }
                 });
-            }
-                });
-                });
+            });
            </script>
-        
+
 
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="js/tether.min.js"></script>
@@ -216,7 +220,7 @@
 
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="js/mdb.min.js"></script>
-        
+
         <!-- MDL -->
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 

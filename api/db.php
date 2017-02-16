@@ -1,6 +1,6 @@
 <?php
 
-
+$debug=true;
 try 							// Attempt a connection to the database:
 {
 	$db = new PDO('mysql:host=127.0.0.1','root','');

@@ -1,5 +1,5 @@
 <?php
-
+$debug=true;
 
 try 							// Attempt a connection to the database:
 {
@@ -15,4 +15,3 @@ catch (PDOException $e)			// If an error is detected
 		die ('Unable to connect to database, please try again later');
 }
 include_once("createDB.php");
-?>
