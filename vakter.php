@@ -83,10 +83,34 @@
         <!--Main layout-->
         <main class="p-t-6">
             <div class="container-fluid">
+             <div class="row">
+                 <div class="col-lg-12">
+                     <h2>Vakter</h2>
+                 </div>
+             </div>
+              
+                     <a href="nyevakter.php"><i class="fa fa-calendar-plus-o fa-4x"></i> </a>
+             <div class="row">
+                 <div class="col-lg-4">
+                 </div>  
+                 <div class="col-lg-1">
+                     <button id="prevweek"><i class="fa fa-arrow-left"></i></button>
+                 </div>    
+                     
+                 <div class="col-lg-1">
+                     <p>Uke: <?php echo $week = date('W'); ?></p>
+                 </div>   
+                 <div class="col-lg-1">
+                     <button id="nextweek"><i class="fa fa-arrow-right"></i></button>
+                 </div>   
+                 <div class="col-lg-4">
+                 </div>   
+             </div>
+                
+                       
                <div class="row">
                    <div class="col-lg-12">
-                    <h2>Vakter</h2>
-                       <a href="nyevakter.php"><i class="fa fa-calendar-plus-o fa-4x"></i> </a>
+                    
 
                      <div class="table-responsive" id="pc">
                       <table class="table table-bordered">
@@ -95,8 +119,8 @@
                                 // Hentet fra http://stackoverflow.com/questions/4439722/finding-first-day-of-week-via-php
                                 function week_start_date($wk_num, $yr, $addDays)
                                 {
-                                  $wk_ts  = strtotime('+' . $wk_num . ' weeks', strtotime($yr . '0101'));
-                                  $mon_ts = strtotime('-' . date('w', $wk_ts) + $addDays + 1 . ' days', $wk_ts);
+                                  $wk_ts  = strtotime('+' . $wk_num  . ' weeks', strtotime($yr . '0101'));
+                                  $mon_ts = strtotime('-' . date('N', $wk_ts) + $addDays  +1  . ' days', $wk_ts);
                                   return $mon_ts;
                                 } // Hentet fra http://stackoverflow.com/questions/4439722/finding-first-day-of-week-via-php
                                 ?>
@@ -105,11 +129,14 @@
                                    <th>Assistent</th>
                                    <?php
                                    // Skriv ut heading
-                                   $weekdays = ['Søn','Man','Tir','Ons','Tor','Fre','Lør'];
+                                   $weekdays = ['Søn', 'Man','Tir','Ons','Tor','Fre','Lør' ];
+                                   $weeknr = date('W');
+                                   $year = date('Y');
+                                   
 
                                    for ($i=0; $i<7; $i++) {
                                        echo "<th>";
-                                       echo $weekdays[date('w', week_start_date(5, 2017, $i))].' '.date('j.n.Y', week_start_date(5, 2017, $i));
+                                       echo $weekdays[date('w', week_start_date($weeknr, $year, $i))].' '.date('j.n.Y', week_start_date($weeknr, $year, $i));
                                        echo "</th>";
                                    }
 
@@ -123,7 +150,7 @@
                             <?php
 
                             include 'api/visVaktertab.php';
-
+                               
                                ?>
                            </tbody>
                         </table>
@@ -178,15 +205,58 @@
 
         <!-- SCRIPTS -->
         <script id="source">
-
+                week = <?php echo $weeknr; ?>;
+                    $("#prevweek").on("click", function() {
+                        
+                        week--;
+                        
+                        var dataString = 'week='+ week;
+                        $.ajax({
+                    type:'POST',
+                    url: 'api/visVakter.php',
+                    data: dataString,
+                    success:function(data){
+                        //var result = $.parseJSON(data);
+                        $.each (data, function (key, value) {
+                          $('#assistent_'+value['personid']+
+                            ' td[data-day-of-week="'+value['dag']+'"]').html(
+                                                value['fra']+"-"+value['til']);
+                        });
+                    }
+                    });
+                    });
+            
+                $("#nextweek").on("click", function() {
+                        
+                        week++;
+                        
+                        var dataString = 'week='+ week;
+                        $.ajax({
+                    type:'POST',
+                    url: 'api/visVakter.php',
+                    data: dataString,
+                    success:function(data){
+                        //var result = $.parseJSON(data);
+                        $.each (data, function (key, value) {
+                          $('#assistent_'+value['personid']+
+                            ' td[data-day-of-week="'+value['dag']+'"]').html(
+                                                value['fra']+"-"+value['til']);
+                        });
+                    }
+                    });
+                    });
                 $(function ()
                   {
-
+                    week = <?php echo $weeknr; ?>;
+                        var dataString = 'week='+ week;
+                    
                 $.ajax({
                     type:'POST',
                     url: 'api/visVakter.php',
+                    data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
+                        
                         $.each (data, function (key, value) {
                           $('#assistent_'+value['personid']+
                             ' td[data-day-of-week="'+value['dag']+'"]').html(

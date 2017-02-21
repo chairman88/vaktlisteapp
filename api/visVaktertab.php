@@ -4,16 +4,11 @@
 
 include 'db.php';
 
-function week_start_date2($wk_num, $yr, $addDays)
-                                {
-                                  $wk_ts  = strtotime('+' . $wk_num . ' weeks', strtotime($yr . '0101'));
-                                  $mon_ts = strtotime('-' . date('w', $wk_ts) + $addDays + 1 . ' days', $wk_ts);
-                                  return $mon_ts;
-                                }
 
 
-         $sql = "SELECT personid, fornavn, etternavn
-         FROM person";
+         $sql = "SELECT personid, fornavn, etternavn, type
+         FROM person
+         WHERE type = 'assistent'";
          $data = array();
          $stmt = $db->query($sql);
          while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
