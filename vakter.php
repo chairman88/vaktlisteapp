@@ -88,29 +88,29 @@
                      <h2>Vakter</h2>
                  </div>
              </div>
-              
+
                      <a href="nyevakter.php"><i class="fa fa-calendar-plus-o fa-4x"></i> </a>
              <div class="row">
                  <div class="col-lg-4">
-                 </div>  
+                 </div>
                  <div class="col-lg-1">
                      <button id="prevweek"><i class="fa fa-arrow-left"></i></button>
-                 </div>    
-                     
+                 </div>
+
                  <div class="col-lg-1">
-                     <p>Uke: <?php echo $week = date('W'); ?></p>
-                 </div>   
+                     <p id="uke">Uke: <?php echo $week = date('W'); ?></p>
+                 </div>
                  <div class="col-lg-1">
                      <button id="nextweek"><i class="fa fa-arrow-right"></i></button>
-                 </div>   
+                 </div>
                  <div class="col-lg-4">
-                 </div>   
+                 </div>
              </div>
-                
-                       
+
+
                <div class="row">
                    <div class="col-lg-12">
-                    
+
 
                      <div class="table-responsive" id="pc">
                       <table class="table table-bordered">
@@ -132,10 +132,10 @@
                                    $weekdays = ['Søn', 'Man','Tir','Ons','Tor','Fre','Lør' ];
                                    $weeknr = date('W');
                                    $year = date('Y');
-                                   
+
 
                                    for ($i=0; $i<7; $i++) {
-                                       echo "<th>";
+                                       echo "<th data-day-of-week='$i'>"; // Samme som i visVaktertab
                                        echo $weekdays[date('w', week_start_date($weeknr, $year, $i))].' '.date('j.n.Y', week_start_date($weeknr, $year, $i));
                                        echo "</th>";
                                    }
@@ -150,7 +150,7 @@
                             <?php
 
                             include 'api/visVaktertab.php';
-                               
+
                                ?>
                            </tbody>
                         </table>
@@ -207,9 +207,9 @@
         <script id="source">
                 week = <?php echo $weeknr; ?>;
                     $("#prevweek").on("click", function() {
-                        
+
                         week--;
-                        
+
                         var dataString = 'week='+ week;
                         $.ajax({
                     type:'POST',
@@ -217,19 +217,24 @@
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
-                        $.each (data, function (key, value) {
+                        $('td[data-day-of-week]').html("");
+                        $('#uke').html("Uke: "+week);
+                        $.each (data.vakter, function (key, value) {
                           $('#assistent_'+value['personid']+
                             ' td[data-day-of-week="'+value['dag']+'"]').html(
                                                 value['fra']+"-"+value['til']);
                         });
+                        $.each (data.dagerIUka, function (key, value) {
+                          $('th[data-day-of-week="'+key+'"]').html(value);
+                        });
                     }
                     });
                     });
-            
+
                 $("#nextweek").on("click", function() {
-                        
+
                         week++;
-                        
+
                         var dataString = 'week='+ week;
                         $.ajax({
                     type:'POST',
@@ -237,10 +242,15 @@
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
-                        $.each (data, function (key, value) {
+                        $('td[data-day-of-week]').html("");
+                        $('#uke').html("Uke: "+week);
+                        $.each (data.vakter, function (key, value) {
                           $('#assistent_'+value['personid']+
                             ' td[data-day-of-week="'+value['dag']+'"]').html(
                                                 value['fra']+"-"+value['til']);
+                        });
+                        $.each (data.dagerIUka, function (key, value) {
+                          $('th[data-day-of-week="'+key+'"]').html(value);
                         });
                     }
                     });
@@ -249,14 +259,14 @@
                   {
                     week = <?php echo $weeknr; ?>;
                         var dataString = 'week='+ week;
-                    
+
                 $.ajax({
                     type:'POST',
                     url: 'api/visVakter.php',
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
-                        
+
                         $.each (data, function (key, value) {
                           $('#assistent_'+value['personid']+
                             ' td[data-day-of-week="'+value['dag']+'"]').html(
