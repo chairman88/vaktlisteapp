@@ -8,7 +8,8 @@ include 'db.php';
 
          $sql = "SELECT personid, fornavn, etternavn, type
          FROM person
-         WHERE type = 'assistent'";
+         WHERE type = 'assistent'
+         ";
          $data = array();
          $stmt = $db->query($sql);
          while($row = $stmt->fetch(PDO::FETCH_ASSOC)){

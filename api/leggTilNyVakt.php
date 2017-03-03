@@ -10,7 +10,7 @@ include 'db.php';
          $til = $_POST['til'];	   
 		 $assistent = $_POST['assistent'];
          
-         $sql = "INSERT INTO vaktliste (dato, fra, til, personid)
+         $sql = "INSERT INTO vaktliste (dato, fra, til, pid)
 		       VALUES (:dato, :fra, :til, :assistent)";
          
         

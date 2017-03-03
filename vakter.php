@@ -220,9 +220,19 @@
                         $('td[data-day-of-week]').html("");
                         $('#uke').html("Uke: "+week);
                         $.each (data.vakter, function (key, value) {
-                          $('#assistent_'+value['personid']+
-                            ' td[data-day-of-week="'+value['dag']+'"]').html(
-                                                value['fra']+"-"+value['til']);
+                            var vaktlisteid = value['vaktlisteid'];
+                            
+                          $('#assistent_'+value['personid']+ 
+                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" name="'+value['personid']+ '" class="vakt" data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>'
+                                                );
+                            $('.vakt').on('click', function() {
+                                vaktid = $(this).attr("id");
+                                personid = $(this).attr("name");
+                                
+                            });
+                           
+                            
+                            
                         });
                         $.each (data.dagerIUka, function (key, value) {
                           $('th[data-day-of-week="'+key+'"]').html(value);
@@ -245,10 +255,14 @@
                         $('td[data-day-of-week]').html("");
                         $('#uke').html("Uke: "+week);
                         $.each (data.vakter, function (key, value) {
+                            var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
-                            ' td[data-day-of-week="'+value['dag']+'"]').html(
-                                                value['fra']+"-"+value['til']);
+                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            $('.vakt').on('click', function() {
+                                vaktid = $(this).attr("id");
+                            });
                         });
+                        
                         $.each (data.dagerIUka, function (key, value) {
                           $('th[data-day-of-week="'+key+'"]').html(value);
                         });
@@ -268,10 +282,13 @@
                         //var result = $.parseJSON(data);
 
                         $.each (data, function (key, value) {
+                            var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
-                            ' td[data-day-of-week="'+value['dag']+'"]').html(
-                                                value['fra']+"-"+value['til']);
+                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt" data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
                         });
+                        $('.vakt').on('click', function() {
+                                vaktid = $(this).attr("id");
+                            });
                         /*
                         $.each(result, function(key, value){
                         $.each(value, function(k, v){
@@ -290,7 +307,50 @@
                 });
             });
            </script>
-
+           
+           <div class="modal fade" id="vakt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Vakt</h4>
+                              </div>
+                              <div class="modal-body">
+                                Hva vil du gjøre med vakten?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" id="endre" onclick="endrevakt();" class="btn btn-primary">Endre</button>
+                                <button type="button" id="slette" class="btn btn-primary" data-dismiss="modal">Slette</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+        <script>
+            function endrevakt() {
+                window.location.href = "endrevakt.php?vaktid="+vaktid+"&personid="+personid;
+            }
+           
+            $("#slette").on("click", function() {
+            
+                var id = vaktid;
+                var dataString = 'id='+ id;
+                
+            $.ajax({
+                    type: 'POST',
+                    url: 'api/slettVakt.php',
+                    data: dataString,
+                    success: function() {
+                       
+                        $('a#'+id).html("");
+                        
+                        
+                    },
+                    error: function(){
+                        
+                    }
+                });
+            
+                });</script>
 
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="js/tether.min.js"></script>
