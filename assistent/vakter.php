@@ -1,11 +1,11 @@
 <?php
     session_start();
-    require_once 'user/init.php';
-    include_once 'user/user_class.php';
+    require_once '../user/init.php';
+    include_once '../user/user_class.php';
     $user = new USER($DB_con);
 
     if($user->is_loggedin()):
-if($user->is_admin()):
+if($user->is_assistent()):
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,10 +22,10 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Material Design Bootstrap -->
-        <link href="css/mdb.min.css" rel="stylesheet">
+        <link href="../css/mdb.min.css" rel="stylesheet">
 
         <!-- MDL -->
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
@@ -33,10 +33,10 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
         <!-- Your custom styles (optional) -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
 
         <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
 
     </head>
 
@@ -59,14 +59,14 @@ if($user->is_admin()):
                   <!--Collapse content-->
                     <div class="collapse navbar-toggleable-xs" id="collapseEx">
                         <!--Navbar Brand-->
-                        <a class="navbar-brand" href="brukere.php">@Work - Admin</a>
+                        <a class="navbar-brand" href="vakter.php">@Work - Assistent</a>
                         <!--Links-->
                         <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="brukere.php">Assistenter </a>
-                            </li>
                             <li class="nav-item active">
-                                <a class="nav-link" href="vakter.php">Vakter<span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="vakter.php">Vakter <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="assistentoversikt.php">Assistenter</a>
                             </li>
 
 
@@ -75,7 +75,7 @@ if($user->is_admin()):
                         <!--Navbar icons-->
                         <ul class="nav navbar-nav nav-flex-icons">
                             <li class="nav-item">
-                                <a class="nav-link" href="profil.html"><i class="fa fa-user fa-2x"></i></a>
+                                <a class="nav-link" href="profil.php"><i class="fa fa-user fa-2x"></i></a>
                             </li>
 
                         </ul>
@@ -98,7 +98,7 @@ if($user->is_admin()):
                  </div>
              </div>
 
-                     <a href="nyevakter.php"><i class="fa fa-calendar-plus-o fa-4x"></i> </a>
+                     
              <div class="row">
                  <div class="col-lg-4">
                  </div>
@@ -158,7 +158,7 @@ if($user->is_admin()):
                            <tbody>
                             <?php
 
-                            include 'api/visVaktertab.php';
+                            include '../api/visVaktertab.php';
 
                                ?>
                            </tbody>
@@ -222,7 +222,7 @@ if($user->is_admin()):
                         var dataString = 'week='+ week;
                         $.ajax({
                     type:'POST',
-                    url: 'api/visVakter.php',
+                    url: '../api/visVakter.php',
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
@@ -232,14 +232,8 @@ if($user->is_admin()):
                             var vaktlisteid = value['vaktlisteid'];
                             
                           $('#assistent_'+value['personid']+ 
-                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" name="'+value['personid']+ '" class="vakt" data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>'
-                                                );
-                            $('.vakt').on('click', function() {
-                                vaktid = $(this).attr("id");
-                                personid = $(this).attr("name");
-                                
-                            });
-                           
+                            ' td[data-day-of-week="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
+                                   
                             
                             
                         });
@@ -257,7 +251,7 @@ if($user->is_admin()):
                         var dataString = 'week='+ week;
                         $.ajax({
                     type:'POST',
-                    url: 'api/visVakter.php',
+                    url: '../api/visVakter.php',
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
@@ -266,7 +260,7 @@ if($user->is_admin()):
                         $.each (data.vakter, function (key, value) {
                           var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
-                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            ' td[data-day-of-week="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
                             $('.vakt').on('click', function() {
                                 vaktid = $(this).attr("id");
                             });
@@ -285,7 +279,7 @@ if($user->is_admin()):
 
                 $.ajax({
                     type:'POST',
-                    url: 'api/visVakter.php',
+                    url: '../api/visVakter.php',
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
@@ -293,11 +287,10 @@ if($user->is_admin()):
                         $.each (data, function (key, value) {
                           var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
-                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt" data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            ' td[data-day-of-week="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
+                            
                         });
-                        $('.vakt').on('click', function() {
-                                vaktid = $(this).attr("id");
-                            });
+                        
                         /*
                         $.each(result, function(key, value){
                         $.each(value, function(k, v){
@@ -315,60 +308,19 @@ if($user->is_admin()):
                     }
                 });
             });
+            
+            $('#assistent_<?php echo $_SESSION['user_id']?>').css({'font-weight': 'bold', 'text-decoration': 'underline'});
            </script>
            
-           <div class="modal fade" id="vakt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Vakt</h4>
-                              </div>
-                              <div class="modal-body">
-                                Hva vil du gjøre med vakten?
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" id="endre" onclick="endrevakt();" class="btn btn-primary">Endre</button>
-                                <button type="button" id="slette" class="btn btn-primary" data-dismiss="modal">Slette</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-        <script>
-            function endrevakt() {
-                window.location.href = "endrevakt.php?vaktid="+vaktid+"&personid="+personid;
-            }
-           
-            $("#slette").on("click", function() {
-            
-                var id = vaktid;
-                var dataString = 'id='+ id;
-                
-            $.ajax({
-                    type: 'POST',
-                    url: 'api/slettVakt.php',
-                    data: dataString,
-                    success: function() {
-                       
-                        $('a#'+id).html("");
-                        
-                        
-                    },
-                    error: function(){
-                        
-                    }
-                });
-            
-                });</script>
 
         <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="js/tether.min.js"></script>
+        <script type="text/javascript" src="../js/tether.min.js"></script>
 
         <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
         <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript" src="../js/mdb.min.js"></script>
 
         <!-- MDL -->
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>

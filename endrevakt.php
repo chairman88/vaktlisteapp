@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    require_once 'user/init.php';
+    include_once 'user/user_class.php';
+    $user = new USER($DB_con);
+
+    if($user->is_loggedin()):
+if($user->is_admin()):
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,11 +58,11 @@
                   <!--Collapse content-->
                     <div class="collapse navbar-toggleable-xs" id="collapseEx">
                         <!--Navbar Brand-->
-                        <a class="navbar-brand" href="index.php">@Work - Admin</a>
+                        <a class="navbar-brand" href="brukere.php">@Work - Admin</a>
                         <!--Links-->
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.php">Assistenter <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="brukere.php">Assistenter <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="vakter.php">Vakter</a>
@@ -265,3 +274,13 @@
     </body>
 
 </html>
+<?php
+    else:
+        echo 'Du er ikke logget inn';
+        exit;
+    endif;
+    else:
+        echo 'Du har ikke tilgang her';
+        exit;
+    endif;
+?>

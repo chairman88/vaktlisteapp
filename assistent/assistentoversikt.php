@@ -1,11 +1,11 @@
 <?php
     session_start();
-    require_once 'user/init.php';
-    include_once 'user/user_class.php';
+    require_once '../user/init.php';
+    include_once '../user/user_class.php';
     $user = new USER($DB_con);
 
     if($user->is_loggedin()):
-if($user->is_admin()):
+if($user->is_assistent()):
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,10 +22,10 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Material Design Bootstrap -->
-        <link href="css/mdb.min.css" rel="stylesheet">
+        <link href="../css/mdb.min.css" rel="stylesheet">
         
         <!-- MDL -->
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
@@ -35,16 +35,16 @@ if($user->is_admin()):
 
 
         <!-- Your custom styles (optional) -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
         
-        <link rel="manifest" href="manifest.json">
+        <link rel="manifest" href="../manifest.json">
 <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
     </head>
 
     <body>
             <?php
-				require_once('db.php');					// Create Database.
+				require_once('../db.php');					// Create Database.
 			?>
 			<script id="source" language="javascript" type="text/javascript">
     
@@ -53,7 +53,7 @@ if($user->is_admin()):
                 
                 $.ajax({
                     type:'POST',
-                    url: 'api/visBrukere.php',
+                    url: '../api/visBrukere.php',
                     success:function(data){
                         var result = $.parseJSON(data);
                         $.each(result, function(key, value){
@@ -132,17 +132,13 @@ if($user->is_admin()):
 
                             
 
-                                $('<td>').append('<a href="endrebruker.php?id='+ personid +'" class="blue-text"><i class="fa fa-pencil"></i></a><a class="black-text delete" id="'+ personid +'"  data-toggle="modal" data-target="#myModal"><i class="fa fa-user-times"></i></a>')
+                                $('<td>').append(/*'<a href="../endrebruker.php?id='+ personid +'" class="blue-text"><i class="fa fa-pencil"></i></a>'*/)
                                                     .append(
                                     $('</td>')
                                     )
                                     
                                 );
-                            $('.delete').on('click', function() {
-                                deleteid = $(this).attr("id");
-                        
-            
-                });
+                            
                         }    
                         }
                         
@@ -172,14 +168,14 @@ if($user->is_admin()):
                   <!--Collapse content-->
                     <div class="collapse navbar-toggleable-xs" id="collapseEx">
                         <!--Navbar Brand-->
-                        <a class="navbar-brand" href="brukere.php">@Work - Admin</a>
+                        <a class="navbar-brand" href="vakter.php">@Work - Assistent</a>
                         <!--Links-->
                         <ul class="nav navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="brukere.php">Assistenter <span class="sr-only">(current)</span></a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="vakter.php">Vakter</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="assistentoversikt.php">Assistenter <span class="sr-only">(current)</span></a>
                             </li>
 
 
@@ -188,7 +184,7 @@ if($user->is_admin()):
                         <!--Navbar icons-->
                         <ul class="nav navbar-nav nav-flex-icons">
                             <li class="nav-item">
-                                <a class="nav-link" href="profil.html"><i class="fa fa-user fa-2x"></i></a>
+                                <a class="nav-link" href="profil.php"><i class="fa fa-user fa-2x"></i></a>
                             </li>
 
                         </ul>
@@ -207,23 +203,7 @@ if($user->is_admin()):
             <div class="container-fluid">   
                 <div class="row">
                     <div id="brukere" class="col-lg-12 col-sm-12 col-xs-12">
-                      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Slett bruker</h4>
-                              </div>
-                              <div class="modal-body">
-                                Er du sikker på at du vil slette?
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Nei</button>
-                                <button type="button" id="slett" class="btn btn-primary">Ja</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                      
                        <div id="1"></div>
                         <h2>Assistentoversikt</h2>
 
@@ -273,7 +253,7 @@ if($user->is_admin()):
                 
             $.ajax({
                     type: 'POST',
-                    url: 'api/slettBruker.php',
+                    url: '../api/slettBruker.php',
                     data: dataString,
                     success: function() {
                        
@@ -291,13 +271,13 @@ if($user->is_admin()):
         </script>
 
         <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="js/tether.min.js"></script>
+        <script type="text/javascript" src="../js/tether.min.js"></script>
 
         <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
         <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript" src="../js/mdb.min.js"></script>
         
         <!-- MDL -->
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
