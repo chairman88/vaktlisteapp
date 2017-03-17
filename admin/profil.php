@@ -1,7 +1,7 @@
 <?php
     session_start();
-    require_once 'user/init.php';
-    include_once 'user/user_class.php';
+    require_once '../user/init.php';
+    include_once '../user/user_class.php';
     $user = new USER($DB_con);
 
     if($user->is_loggedin()):
@@ -22,10 +22,10 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Material Design Bootstrap -->
-        <link href="css/mdb.min.css" rel="stylesheet">
+        <link href="../css/mdb.min.css" rel="stylesheet">
 
         <!-- MDL -->
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
@@ -33,7 +33,7 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
        
         <!-- Your custom styles (optional) -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
 
     </head>
 
@@ -104,7 +104,7 @@ if($user->is_admin()):
                         
                         <?php
                             if($user->is_loggedin()) {
-                                echo '<div class="col-lg-4 col-xs-4"><a class="btn btn-primary" href="api/logout.php">Logg ut</a></div>';
+                                echo '<div class="col-lg-4 col-xs-4"><a class="btn btn-primary" href="../api/logout.php">Logg ut</a></div>';
                             } else {
                                 
                             }
@@ -121,16 +121,16 @@ if($user->is_admin()):
         <!-- SCRIPTS -->
 
         <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
 
         <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="js/tether.min.js"></script>
+        <script type="text/javascript" src="../js/tether.min.js"></script>
 
         <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
         <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript" src="../js/mdb.min.js"></script>
         
         <!-- MDL -->
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>

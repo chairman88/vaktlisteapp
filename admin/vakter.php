@@ -1,7 +1,7 @@
 <?php
     session_start();
-    require_once 'user/init.php';
-    include_once 'user/user_class.php';
+    require_once '../user/init.php';
+    include_once '../user/user_class.php';
     $user = new USER($DB_con);
 
     if($user->is_loggedin()):
@@ -22,10 +22,10 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Material Design Bootstrap -->
-        <link href="css/mdb.min.css" rel="stylesheet">
+        <link href="../css/mdb.min.css" rel="stylesheet">
 
         <!-- MDL -->
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
@@ -33,10 +33,10 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
         <!-- Your custom styles (optional) -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
 
         <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
 
     </head>
 
@@ -75,7 +75,7 @@ if($user->is_admin()):
                         <!--Navbar icons-->
                         <ul class="nav navbar-nav nav-flex-icons">
                             <li class="nav-item">
-                                <a class="nav-link" href="profil.html"><i class="fa fa-user fa-2x"></i></a>
+                                <a class="nav-link" href="profil.php"><i class="fa fa-user fa-2x"></i></a>
                             </li>
 
                         </ul>
@@ -158,7 +158,7 @@ if($user->is_admin()):
                            <tbody>
                             <?php
 
-                            include 'api/visVaktertab.php';
+                           include '../api/visVaktertab.php';
 
                                ?>
                            </tbody>
@@ -172,34 +172,36 @@ if($user->is_admin()):
                     <div class="table-responsive" id="mobile">
                       <table class="table table-bordered">
                          <tbody>
-                           <thead class="thead-inverse">
+                           
 
-                          </thead>
+                               
+                                   <?php
+                                   // Skriv ut heading
+                                   $weekdays = ['Søn', 'Man','Tir','Ons','Tor','Fre','Lør' ];
+                                   $weeknr = date('W');
+                                   $year = date('Y');
 
-                        <thead class="thead-inverse">
 
-                        </thead>
+                                   for ($i=0; $i<7; $i++) {
+                                       echo "<thead class='thead-inverse'>";
+                                       echo "<tr>";
+                                       echo "<th>";
+                                       echo 'Assistent';
+                                       echo "</th>";
+                                       echo "<th data-day-of-week='$i'>"; // Samme som i visVaktertab
+                                       echo $weekdays[date('w', week_start_date($weeknr, $year, $i))].' '.date('j.n.Y', week_start_date($weeknr, $year, $i));
+                                       echo "</th>";
+                                       echo "</tr>";
+                                       echo "</thead>";
+                                       //include "../api/visVaktertabMobil.php";
+                                       
 
-                        <thead class="thead-inverse">
+                                   }
 
-                          </thead>
 
-                        <thead class="thead-inverse">
 
-                          </thead>
-
-                        <thead class="thead-inverse">
-
-                          </thead>
-
-                        <thead class="thead-inverse">
-
-                          </thead>
-
-                        <thead class="thead-inverse">
-
-                          </thead>
-
+                                   ?>
+                                   
                            </tbody>
                         </table>
                     </div>
@@ -222,7 +224,7 @@ if($user->is_admin()):
                         var dataString = 'week='+ week;
                         $.ajax({
                     type:'POST',
-                    url: 'api/visVakter.php',
+                    url: '../api/visVakter.php',
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
@@ -257,7 +259,7 @@ if($user->is_admin()):
                         var dataString = 'week='+ week;
                         $.ajax({
                     type:'POST',
-                    url: 'api/visVakter.php',
+                    url: '../api/visVakter.php',
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
@@ -285,7 +287,7 @@ if($user->is_admin()):
 
                 $.ajax({
                     type:'POST',
-                    url: 'api/visVakter.php',
+                    url: '../api/visVakter.php',
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
@@ -346,7 +348,7 @@ if($user->is_admin()):
                 
             $.ajax({
                     type: 'POST',
-                    url: 'api/slettVakt.php',
+                    url: '../api/slettVakt.php',
                     data: dataString,
                     success: function() {
                        
@@ -362,13 +364,13 @@ if($user->is_admin()):
                 });</script>
 
         <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="js/tether.min.js"></script>
+        <script type="text/javascript" src="../js/tether.min.js"></script>
 
         <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
         <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript" src="../js/mdb.min.js"></script>
 
         <!-- MDL -->
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>

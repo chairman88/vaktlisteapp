@@ -1,7 +1,7 @@
 <?php
     session_start();
-    require_once 'user/init.php';
-    include_once 'user/user_class.php';
+    require_once '../user/init.php';
+    include_once '../user/user_class.php';
     $user = new USER($DB_con);
 
     if($user->is_loggedin()):
@@ -15,7 +15,7 @@ if($user->is_admin()):
 
         
         
- 	require_once 'db.php';
+ 	require_once '../db.php';
 	
 
  	?>
@@ -29,10 +29,10 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Material Design Bootstrap -->
-        <link href="css/mdb.min.css" rel="stylesheet">
+        <link href="../css/mdb.min.css" rel="stylesheet">
 
         <!-- MDL -->
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
@@ -40,9 +40,9 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
        
         <!-- Your custom styles (optional) -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
                 <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
         
         
 
@@ -50,7 +50,9 @@ if($user->is_admin()):
     </head>
 
     <body>
-           
+
+
+
         <!--Navigation-->
         <header>
 
@@ -81,7 +83,7 @@ if($user->is_admin()):
                         <!--Navbar icons-->
                         <ul class="nav navbar-nav nav-flex-icons">
                             <li class="nav-item">
-                                <a class="nav-link"><i class="fa fa-user fa-2x"></i></a>
+                                <a class="nav-link" href="profil.php"><i class="fa fa-user fa-2x"></i></a>
                             </li>
 
                         </ul>
@@ -101,69 +103,69 @@ if($user->is_admin()):
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                      
-                       <h4>Endre bruker</h4>
+                       <h4>Ny bruker</h4>
                       
-                        <form class="form" id="edituser" action="" method="get">
+                        <form class="form" id="newuser" action="" method="post">
 
                             
                             <div class="md-form form-group">
                                
                                 <input type="text" id="fn" name="fn" class="form-control validate">
-                                <label for="fn" class="active">Fornavn</label>
+                                <label for="fn">Fornavn</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
                                 <input type="text" id="ln" name="ln" class="form-control validate">
-                                <label for="ln" class="active">Etternavn</label>
+                                <label for="ln">Etternavn</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
                                 <input type="number" id="tlf" name="tlf" class="form-control validate">
-                                <label for="tlf" class="active">Tlf</label>
+                                <label for="tlf">Tlf</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
                                 <input type="email" id="epost" name="epost" class="form-control validate">
-                                <label for="epost" class="active">E-postadresse</label>
+                                <label for="epost">E-postadresse</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
                                 <input type="number" id="postnummer" name="postnummer" min="0000" max="9999" class="form-control validate">
-                                <label for="postnummer" class="active">Postnummer</label>
+                                <label for="postnummer">Postnummer</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
                                 <input type="text" id="poststed" name="poststed" class="form-control validate">
-                                <label for="poststed" class="active">Poststed</label>
+                                <label for="poststed">Poststed</label>
                                 
                             </div>
                             <div class="md-form form-group">
                                
                                 <input type="text" id="adresse" name="adresse" class="form-control validate">
-                                <label for="adresse" class="active">Adresse</label>
+                                <label for="adresse">Adresse</label>
                                 
                             </div>
                             <div class="form-group">
                                
                                Type
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1" id="opt1">
-                                <input type="radio" id="option-1" class="mdl-radio__button" id="type" name="type" value="admin">
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+                                <input type="radio" id="option-1" class="mdl-radio__button" id="type" name="type" value="admin" checked>
                                 <span class="mdl-radio__label">Admin</span>
                             </label>
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2" id="opt2">
-                                <input type="radio" id="option-2" class="mdl-radio__button" id="type" name="type" value="assistent">
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                                <input type="radio" id="option-2" class="mdl-radio__button" id="type" name="type" value="assistent" >
                                 <span class="mdl-radio__label">Assistent</span>
                             </label>
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3" id="opt3">
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3">
                                 <input type="radio" id="option-3" class="mdl-radio__button" id="type" name="type" value="iassistent" >
                                 <span class="mdl-radio__label">Inaktiv Assistent</span>
                             </label>
-                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-4" id="opt4">
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-4">
                                 <input type="radio" id="option-4" class="mdl-radio__button" id="type" name="type" value="bruker" >
                                 <span class="mdl-radio__label">Bruker</span>
                             </label>
@@ -173,14 +175,14 @@ if($user->is_admin()):
                             <div class="md-form form-group">
                                
                                 <input type="text" id="brukernavn" name="brukernavn" class="form-control validate">
-                                <label for="brukernavn" class="active">Brukernavn</label>
+                                <label for="brukernavn">Brukernavn</label>
                                 
                             </div>
                             
                             <div class="md-form form-group">
                                
                                 <input type="password" id="passord" name="passord" class="form-control validate">
-                                <label for="passord" class="active">Passord</label>
+                                <label for="passord">Passord</label>
                                 <h1 class="1"></h1>
 
                             </div>
@@ -199,112 +201,21 @@ if($user->is_admin()):
         
 
         <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="js/tether.min.js"></script>
+        <script type="text/javascript" src="../js/tether.min.js"></script>
 
         <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
         <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript" src="../js/mdb.min.js"></script>
         
         <!-- MDL -->
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-        
-        <script>
-    
-                $(function ()
-                  {
-                var id ="<?php echo $_GET['id']; ?>";
-                
-                $.ajax({
-                    type:'GET',
-                    url: 'api/hentBruker.php?id='+ id,
-                    
-                    
-                    success:function(data){
-                        var result = $.parseJSON(data);
-                        $.each(result, function(key, value){
-                        $.each(value, function(k, v){
-                        var type = value['type'];
-                        var personid = value['personid'];
-                        var fornavn = value['fornavn'];
-                        var etternavn = value['etternavn'];
-                        var telefonnummer = value['telefonnummer'];
-                        var epostadresse = value['epostadresse'];
-                        var postnummer = value['postnummer'];
-                        var poststed = value['poststed'];
-                        var adresse = value['adresse'];
-                        var brukernavn = value['brukernavn'];
-                        var passord = value['passord'];
-                        
-                            if(k === "fornavn"){
-                                $("#edituser").find('[name="fn"]').val(fornavn).change();
-                            }
-                            if(k === "etternavn"){
-                                $("#edituser").find('[name="ln"]').val(etternavn).change();       
-                            }
-                            if(k === "telefonnummer"){
-                                $("#edituser").find('[name="tlf"]').val(telefonnummer).change();       
-                            }
-                            if(k === "epostadresse"){
-                                $("#edituser").find('[name="epost"]').val(epostadresse).change();       
-                            }
-                            if(k === "postnummer"){
-                                $("#edituser").find('[name="postnummer"]').val(postnummer).change();       
-                            }
-                            if(k === "poststed"){
-                                $("#edituser").find('[name="poststed"]').val(poststed).change();       
-                            }
-                            if(k === "adresse"){
-                                $("#edituser").find('[name="adresse"]').val(adresse).change();       
-                            }
-                            if(type == "admin"){
-                                $("#opt1").addClass("is-checked").prop("checked", true);
-                                $("#option-1").prop("checked", true);
-                            }
-                            if(type == "assistent"){
-                                $("#opt2").addClass("is-checked");
-                                $("#option-2").prop("checked", true);
-                            }
-                            if(type == "iassistent"){
-                                $("#opt3").addClass("is-checked");
-                                $("#option-3").prop("checked", true);
-                            }
-                            if(type == "bruker"){
-                                $("#opt4").addClass("is-checked");
-                                $("#option-4").prop("checked", true);
-                            }
-                            if(k === "brukernavn"){
-                                $("#edituser").find('[name="brukernavn"]').val(brukernavn).change();       
-                            }
-                            if(k === "passord"){
-                                $("#edituser").find('[name="passord"]').val(passord).change();       
-                            }
-                        
-                        });
-                            
-
-                    });
-                
-    
-                     
-                
-            },
-                    error: function(){
-                        
-                    }
-                });
-                });
-           </script>
-
 
         <script>
-            $('#edituser button').on("click", function() {
-            
-            var id ="<?php echo $_GET['id']; ?>"; 
-                
+            $('#newuser button').on("click", function() {
+                   
             var fn = $("#fn").val();
-            
             var ln = $("#ln").val();
             var tlf = $("#tlf").val();
             var epost = $("#epost").val();
@@ -312,27 +223,25 @@ if($user->is_admin()):
             var poststed = $("#poststed").val();
             var adresse = $("#adresse").val();
             var type = $("input[name=type]:checked").val();
-            
             var brukernavn = $("#brukernavn").val();
             var passord = $("#passord").val();
-                
 
             // Returns successful data submission message when the entered information is stored in database.
-            var dataString = 'id='+ id + '&fn='+ fn + '&ln='+ ln + '&tlf='+ tlf + '&epost='+ epost + '&postnummer='+ postnummer + '&poststed='+ poststed + '&adresse='+ adresse + '&type='+ type + '&brukernavn='+ brukernavn + '&passord='+ passord;            if(fn==''||ln==''||tlf==''||epost==''||postnummer==''||poststed==''||adresse==''||type==''||brukernavn==''||passord=='')
+            var dataString = 'fn='+ fn + '&ln='+ ln + '&tlf='+ tlf + '&epost='+ epost + '&postnummer='+ postnummer + '&poststed='+ poststed + '&adresse='+ adresse + '&type='+ type + '&brukernavn='+ brukernavn + '&passord='+ passord;            if(fn==''||ln==''||tlf==''||epost==''||postnummer==''||poststed==''||adresse==''||type==''||brukernavn==''||passord=='')
             {
                 alert("Please Fill All Fields");
             }
             else
             { 
                 $.ajax({
-                    type: 'GET',
-                    url: 'api/endreBruker.php',
+                    type: 'POST',
+                    url: '../api/leggTilNyBruker.php',
                     data: dataString,
                     cache: false,
                     success: function() {
-                        $( '.1' ).append( '<div class="alert alert-success" role="alert">Bruker endret</div>').fadeOut( 3000 );
-                        window.location = "index.php";
+                        $( '.1' ).append( '<div class="alert alert-success" role="alert">Bruker lagt inn i databasen</div>').fadeOut( 3000 );
                         
+                        location.reload();
                     },
                     error: function(){
                         alert('failure');

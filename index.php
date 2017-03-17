@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once 'db.php';
     require_once 'user/init.php';
     include_once 'user/user_class.php';
     $user = new USER($DB_con);

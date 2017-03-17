@@ -1,7 +1,7 @@
 <?php
     session_start();
-    require_once 'user/init.php';
-    include_once 'user/user_class.php';
+    require_once '../user/init.php';
+    include_once '../user/user_class.php';
     $user = new USER($DB_con);
 
     if($user->is_loggedin()):
@@ -22,10 +22,10 @@ if($user->is_admin()):
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 
         <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Material Design Bootstrap -->
-        <link href="css/mdb.min.css" rel="stylesheet">
+        <link href="../css/mdb.min.css" rel="stylesheet">
         
         <!-- MDL -->
         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-red.min.css">
@@ -35,17 +35,16 @@ if($user->is_admin()):
 
 
         <!-- Your custom styles (optional) -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
         
-        <link rel="manifest" href="manifest.json">
         
         <!-- JQuery -->
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
     </head>
 
     <body>
             <?php
-				require_once('db.php');					// Create Database.
+				require_once('../db.php');					// Create Database.
 			?>
 			<script id="source" language="javascript" type="text/javascript">
     
@@ -54,7 +53,7 @@ if($user->is_admin()):
                 
                 $.ajax({
                     type:'POST',
-                    url: 'api/visBrukere.php',
+                    url: '../api/visBrukere.php',
                     success:function(data){
                         var result = $.parseJSON(data);
                         $.each(result, function(key, value){
@@ -450,7 +449,7 @@ if($user->is_admin()):
                 
             $.ajax({
                     type: 'POST',
-                    url: 'api/slettBruker.php',
+                    url: '../api/slettBruker.php',
                     data: dataString,
                     success: function() {
                        
@@ -478,7 +477,7 @@ if($user->is_admin()):
                 
             $.ajax({
                     type: 'GET',
-                    url: 'api/skjulBruker.php?id=' + id,
+                    url: '../api/skjulBruker.php?id=' + id,
                     
                     success: function() {
                        location.reload();
@@ -501,7 +500,7 @@ if($user->is_admin()):
                 
             $.ajax({
                     type: 'GET',
-                    url: 'api/visAssistentioversikt.php?id=' + id,
+                    url: '../api/visAssistentioversikt.php?id=' + id,
                     
                     success: function() {
                        location.reload();
@@ -517,13 +516,13 @@ if($user->is_admin()):
         </script>
 
         <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="js/tether.min.js"></script>
+        <script type="text/javascript" src="../js/tether.min.js"></script>
 
         <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 
         <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="js/mdb.min.js"></script>
+        <script type="text/javascript" src="../js/mdb.min.js"></script>
         
         <!-- MDL -->
         <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>

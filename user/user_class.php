@@ -20,7 +20,7 @@ class USER {
                 $_SESSION['user_type'] = $userRow['type'];
                 $_SESSION['user_id'] = $userRow['personid'];
                  if($userRow['type'] === 'admin'){
-                header('Location:../brukere.php');
+                header('Location:../admin/brukere.php');
                  }
                  if($userRow['type'] === 'assistent'){
                 header('Location:../assistent/vakter.php');
