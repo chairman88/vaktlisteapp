@@ -331,7 +331,7 @@ if($user->is_admin()):
                     cache: false,
                     success: function() {
                         $( '.1' ).append( '<div class="alert alert-success" role="alert">Bruker endret</div>').fadeOut( 3000 );
-                        window.location = "index.php";
+                        window.location = "brukere.php";
                         
                     },
                     error: function(){

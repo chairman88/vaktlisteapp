@@ -75,7 +75,7 @@ if($user->is_bruker()):
                         <!--Navbar icons-->
                         <ul class="nav navbar-nav nav-flex-icons">
                             <li class="nav-item">
-                                <a class="nav-link" href="profil.html"><i class="fa fa-user fa-2x"></i></a>
+                                <a class="nav-link" href="profil.php"><i class="fa fa-user fa-2x"></i></a>
                             </li>
 
                         </ul>

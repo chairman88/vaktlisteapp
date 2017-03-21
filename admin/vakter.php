@@ -247,7 +247,7 @@ if($user->is_admin()):
                         
                           
                           $('#assistent_mobil_'+value['personid']+
-                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" name="'+value['personid']+ '" class="vakt" data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
                             
                             $('.vakt').on('click', function() {
                                 vaktid = $(this).attr("id");
@@ -283,15 +283,16 @@ if($user->is_admin()):
                         $.each (data.vakter, function (key, value) {
                           var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
-                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" name="'+value['personid']+ '" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
                         
                         
                         
                           
                           $('#assistent_mobil_'+value['personid']+
-                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" name="'+value['personid']+ '" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
                             $('.vakt').on('click', function() {
                                 vaktid = $(this).attr("id");
+                                personid = $(this).attr("name");
                             });
                         
                         });
@@ -319,15 +320,16 @@ if($user->is_admin()):
                         $.each (data.vakter, function (key, value) {
                           var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
-                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" name="'+value['personid']+ '" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
                         
                         
                         
                           
                           $('#assistent_mobil_'+value['personid']+
-                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" name="'+value['personid']+ '" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
                             $('.vakt').on('click', function() {
                                 vaktid = $(this).attr("id");
+                                personid = $(this).attr("name");
                             });
                         
                         });
