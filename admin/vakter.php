@@ -100,20 +100,22 @@ if($user->is_admin()):
 
                      <a href="nyevakter.php"><i class="fa fa-calendar-plus-o fa-4x"></i> </a>
              <div class="row">
+                
                  <div class="col-lg-4">
                  </div>
-                 <div class="col-lg-1">
+                 <div class="col-lg-1 col-sm-4 col-xs-4">
                      <button id="prevweek"><i class="fa fa-arrow-left"></i></button>
                  </div>
 
-                 <div class="col-lg-1">
+                 <div class="col-lg-1 col-sm-4 col-xs-4">
                      <p id="uke">Uke: <?php echo $week = date('W'); ?></p>
                  </div>
-                 <div class="col-lg-1">
+                 <div class="col-lg-1 col-sm-4 col-xs-4">
                      <button id="nextweek"><i class="fa fa-arrow-right"></i></button>
                  </div>
                  <div class="col-lg-4">
                  </div>
+                 
              </div>
 
 
@@ -188,12 +190,15 @@ if($user->is_admin()):
                                        echo "<th>";
                                        echo 'Assistent';
                                        echo "</th>";
-                                       echo "<th data-day-of-week='$i'>"; // Samme som i visVaktertab
+                                       echo "<th data-day-of-week-mobile='$i'>"; // Samme som i visVaktertab
                                        echo $weekdays[date('w', week_start_date($weeknr, $year, $i))].' '.date('j.n.Y', week_start_date($weeknr, $year, $i));
                                        echo "</th>";
                                        echo "</tr>";
                                        echo "</thead>";
-                                       //include "../api/visVaktertabMobil.php";
+                                       include "../api/visVaktertabMobil.php";
+                                       
+                                        echo "</tr>";
+                                       
                                        
 
                                    }
@@ -229,6 +234,7 @@ if($user->is_admin()):
                     success:function(data){
                         //var result = $.parseJSON(data);
                         $('td[data-day-of-week]').html("");
+                        $('td[data-day-of-week-mobile]').html("");
                         $('#uke').html("Uke: "+week);
                         $.each (data.vakter, function (key, value) {
                             var vaktlisteid = value['vaktlisteid'];
@@ -236,6 +242,13 @@ if($user->is_admin()):
                           $('#assistent_'+value['personid']+ 
                             ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" name="'+value['personid']+ '" class="vakt" data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>'
                                                 );
+                            
+                        
+                        
+                          
+                          $('#assistent_mobil_'+value['personid']+
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            
                             $('.vakt').on('click', function() {
                                 vaktid = $(this).attr("id");
                                 personid = $(this).attr("name");
@@ -244,11 +257,12 @@ if($user->is_admin()):
                            
                             
                             
-                        });
+                       });
                         $.each (data.dagerIUka, function (key, value) {
                           $('th[data-day-of-week="'+key+'"]').html(value);
+                            $('th[data-day-of-week-mobile="'+key+'"]').html(value);
                         });
-                    }
+                        }
                     });
                     });
 
@@ -264,18 +278,26 @@ if($user->is_admin()):
                     success:function(data){
                         //var result = $.parseJSON(data);
                         $('td[data-day-of-week]').html("");
+                        $('td[data-day-of-week-mobile]').html("");
                         $('#uke').html("Uke: "+week);
                         $.each (data.vakter, function (key, value) {
                           var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
                             ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                        
+                        
+                        
+                          
+                          $('#assistent_mobil_'+value['personid']+
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
                             $('.vakt').on('click', function() {
                                 vaktid = $(this).attr("id");
                             });
-                        });
                         
+                        });
                         $.each (data.dagerIUka, function (key, value) {
                           $('th[data-day-of-week="'+key+'"]').html(value);
+                            $('th[data-day-of-week-mobile="'+key+'"]').html(value);
                         });
                     }
                     });
@@ -289,34 +311,33 @@ if($user->is_admin()):
                     type:'POST',
                     url: '../api/visVakter.php',
                     data: dataString,
-                    success:function(data){
+                   success:function(data){
                         //var result = $.parseJSON(data);
-
-                        $.each (data, function (key, value) {
+                        $('td[data-day-of-week]').html("");
+                        $('td[data-day-of-week-mobile]').html("");
+                        $('#uke').html("Uke: "+week);
+                        $.each (data.vakter, function (key, value) {
                           var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
-                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt" data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
-                        });
-                        $('.vakt').on('click', function() {
+                            ' td[data-day-of-week="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                        
+                        
+                        
+                          
+                          $('#assistent_mobil_'+value['personid']+
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html('<a id="'+vaktlisteid+'" class="vakt"  data-toggle="modal" data-target="#vakt">'+value['fra']+"-"+value['til']+'</a>');
+                            $('.vakt').on('click', function() {
                                 vaktid = $(this).attr("id");
                             });
-                        /*
-                        $.each(result, function(key, value){
-                        $.each(value, function(k, v){
-                        var dato = value['dato'];
-                        var pid = value['pid'];
-                        var vaktlisteid = value['vaktlisteid'];
-                        var fra = value['fra'];
-                        var til = value['til'];
-                        var fornavn = value['fornavn'];
-                        var etternavn = value['etternavn'];
-                            $(fornavn + etternavn).appendTo("#assistent");
-                        */
-
-
+                        
+                        });
+                        $.each (data.dagerIUka, function (key, value) {
+                          $('th[data-day-of-week="'+key+'"]').html(value);
+                            $('th[data-day-of-week-mobile="'+key+'"]').html(value);
+                        });
                     }
-                });
-            });
+                    });
+                    });
            </script>
            
            <div class="modal fade" id="vakt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

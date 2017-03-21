@@ -270,6 +270,8 @@ if($user->is_assistent()):
         
         </script>
 
+        <link href="../css/style2.css" rel="stylesheet">
+       
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="../js/tether.min.js"></script>
 

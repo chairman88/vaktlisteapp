@@ -102,18 +102,17 @@ if($user->is_bruker()):
              <div class="row">
                  <div class="col-lg-4">
                  </div>
-                 <div class="col-lg-1">
+                 <div class="col-lg-1 col-sm-4 col-xs-4">
                      <button id="prevweek"><i class="fa fa-arrow-left"></i></button>
                  </div>
 
-                 <div class="col-lg-1">
+                 <div class="col-lg-1 col-sm-4 col-xs-4">
                      <p id="uke">Uke: <?php echo $week = date('W'); ?></p>
                  </div>
-                 <div class="col-lg-1">
+                 <div class="col-lg-1 col-sm-4 col-xs-4">
                      <button id="nextweek"><i class="fa fa-arrow-right"></i></button>
                  </div>
                  <div class="col-lg-4">
-                 </div>
              </div>
 
 
@@ -172,34 +171,35 @@ if($user->is_bruker()):
                     <div class="table-responsive" id="mobile">
                       <table class="table table-bordered">
                          <tbody>
-                           <thead class="thead-inverse">
+                           <?php
+                                   // Skriv ut heading
+                                   $weekdays = ['Søn', 'Man','Tir','Ons','Tor','Fre','Lør' ];
+                                   $weeknr = date('W');
+                                   $year = date('Y');
 
-                          </thead>
 
-                        <thead class="thead-inverse">
+                                   for ($i=0; $i<7; $i++) {
+                                       echo "<thead class='thead-inverse'>";
+                                       echo "<tr>";
+                                       echo "<th>";
+                                       echo 'Assistent';
+                                       echo "</th>";
+                                       echo "<th data-day-of-week-mobile='$i'>"; // Samme som i visVaktertab
+                                       echo $weekdays[date('w', week_start_date($weeknr, $year, $i))].' '.date('j.n.Y', week_start_date($weeknr, $year, $i));
+                                       echo "</th>";
+                                       echo "</tr>";
+                                       echo "</thead>";
+                                       include "../api/visVaktertabMobil.php";
+                                       
+                                        echo "</tr>";
+                                       
+                                       
 
-                        </thead>
+                                   }
 
-                        <thead class="thead-inverse">
 
-                          </thead>
 
-                        <thead class="thead-inverse">
-
-                          </thead>
-
-                        <thead class="thead-inverse">
-
-                          </thead>
-
-                        <thead class="thead-inverse">
-
-                          </thead>
-
-                        <thead class="thead-inverse">
-
-                          </thead>
-
+                                   ?>
                            </tbody>
                         </table>
                     </div>
@@ -227,18 +227,23 @@ if($user->is_bruker()):
                     success:function(data){
                         //var result = $.parseJSON(data);
                         $('td[data-day-of-week]').html("");
+                        $('td[data-day-of-week-mobile]').html("");
                         $('#uke').html("Uke: "+week);
                         $.each (data.vakter, function (key, value) {
                             var vaktlisteid = value['vaktlisteid'];
                             
                           $('#assistent_'+value['personid']+ 
                             ' td[data-day-of-week="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
+                            
+                            $('#assistent_mobil_'+value['personid']+
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
                                    
                             
                             
                         });
                         $.each (data.dagerIUka, function (key, value) {
                           $('th[data-day-of-week="'+key+'"]').html(value);
+                            $('th[data-day-of-week-mobile="'+key+'"]').html(value);
                         });
                     }
                     });
@@ -256,18 +261,21 @@ if($user->is_bruker()):
                     success:function(data){
                         //var result = $.parseJSON(data);
                         $('td[data-day-of-week]').html("");
+                        $('td[data-day-of-week-mobile]').html("");
                         $('#uke').html("Uke: "+week);
                         $.each (data.vakter, function (key, value) {
                           var vaktlisteid = value['vaktlisteid'];
                           $('#assistent_'+value['personid']+
                             ' td[data-day-of-week="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
-                            $('.vakt').on('click', function() {
-                                vaktid = $(this).attr("id");
-                            });
+                            
+                            $('#assistent_mobil_'+value['personid']+
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
+                            
                         });
                         
                         $.each (data.dagerIUka, function (key, value) {
                           $('th[data-day-of-week="'+key+'"]').html(value);
+                            $('th[data-day-of-week-mobile="'+key+'"]').html(value);
                         });
                     }
                     });
@@ -283,30 +291,30 @@ if($user->is_bruker()):
                     data: dataString,
                     success:function(data){
                         //var result = $.parseJSON(data);
-
-                        $.each (data, function (key, value) {
-                          var vaktlisteid = value['vaktlisteid'];
-                          $('#assistent_'+value['personid']+
+                        $('td[data-day-of-week]').html("");
+                        $('td[data-day-of-week-mobile]').html("");
+                        $('#uke').html("Uke: "+week);
+                        $.each (data.vakter, function (key, value) {
+                            var vaktlisteid = value['vaktlisteid'];
+                            
+                          $('#assistent_'+value['personid']+ 
                             ' td[data-day-of-week="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
+                            
+                            $('#assistent_mobil_'+value['personid']+
+                            ' td[data-day-of-week-mobile="'+value['dag']+'"]').html(value['fra']+"-"+value['til']);
+                                   
+                            
+                            
                         });
-                        
-                        /*
-                        $.each(result, function(key, value){
-                        $.each(value, function(k, v){
-                        var dato = value['dato'];
-                        var pid = value['pid'];
-                        var vaktlisteid = value['vaktlisteid'];
-                        var fra = value['fra'];
-                        var til = value['til'];
-                        var fornavn = value['fornavn'];
-                        var etternavn = value['etternavn'];
-                            $(fornavn + etternavn).appendTo("#assistent");
-                        */
-
-
+                        $.each (data.dagerIUka, function (key, value) {
+                          $('th[data-day-of-week="'+key+'"]').html(value);
+                            $('th[data-day-of-week-mobile="'+key+'"]').html(value);
+                        });
                     }
-                });
-            });
+                    });
+                    });
+            
+            
            </script>
            
 
